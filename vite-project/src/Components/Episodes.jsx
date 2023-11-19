@@ -34,9 +34,10 @@ export const ShowPreview = () => {
 
           {showData.map((show, showIndex) => (
             <div key={showIndex} className="show-preview-card">
+              <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <div className="show-preview-details">
-                <h2>{show.title}</h2>
+    
                 <p>{show.description}</p>
               </div>
             </div>
