@@ -20,6 +20,10 @@ export const ShowPreview = () => {
       });
   }, []);
 
+  const handleNewData= ()=>{
+
+  }
+
   // Check if data is present
   const showData = data || [];
 
@@ -33,7 +37,7 @@ export const ShowPreview = () => {
           <h1>The Inclusive Prodcast</h1>
 
           {showData.map((show, showIndex) => (
-            <div key={showIndex} className="show-preview-card">
+            <div key={showIndex} className="show-preview-card" onClick={handleNewData}>
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <div className="show-preview-details">
