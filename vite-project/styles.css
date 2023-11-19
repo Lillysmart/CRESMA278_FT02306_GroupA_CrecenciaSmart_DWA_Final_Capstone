@@ -51,3 +51,7 @@ text-align: center;
 .showgenre{
   display: none;
 }
+
+.showid{
+  display: none;
+}
