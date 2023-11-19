@@ -37,9 +37,13 @@ export const ShowPreview = () => {
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <div className="show-preview-details">
-               
                 <p>{show.description}</p>
                 <h3>Seasons :{show.seasons} </h3>
+                {/* Assuming show.updated is a valid Date object */}
+                <p>
+                  Updated: {new Date(show.updated).toLocaleDateString("en-US")}
+                </p>
+                <p>Genre : {}</p>
               </div>
             </div>
           ))}
