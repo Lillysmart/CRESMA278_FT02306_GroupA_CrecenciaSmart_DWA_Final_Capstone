@@ -20,9 +20,22 @@ export const ShowPreview = () => {
       });
   }, []);
 
-  const handleNewData= ()=>{
+  const handleNewData = (id) => {
+    fetch(`https://podcast-api.netlify.app/id/${id}`)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log("Fetched data:", responseData);
+        setData(responseData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+    
+      });
+  };
 
-  }
+  useEffect(()=>{
+
+  }, [])
 
   // Check if data is present
   const showData = data || [];
