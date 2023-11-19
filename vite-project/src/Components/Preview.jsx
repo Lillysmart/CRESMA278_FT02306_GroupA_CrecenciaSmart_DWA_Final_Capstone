@@ -43,7 +43,7 @@ export const ShowPreview = () => {
                 <p>
                   Updated: {new Date(show.updated).toLocaleDateString("en-US")}
                 </p>
-                <p>Genre : {}</p>
+                <p className="showgenre">Genre : {show.genres  }</p>
               </div>
             </div>
           ))}

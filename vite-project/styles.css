@@ -47,3 +47,7 @@ text-align: center;
 .show-preview-details p {
   color: #555;
 }
+
+.showgenre{
+  display: none;
+}
