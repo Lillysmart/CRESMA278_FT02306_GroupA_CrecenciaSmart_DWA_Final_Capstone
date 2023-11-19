@@ -19,14 +19,30 @@ text-align: center;
   display: block;
 }
 
+/* styles.css */
 .show-preview-details {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center the content horizontally */
 }
+
+.show-preview-details h3 {
+  color: white;
+  background-color: rgb(181, 149, 149);
+  width: 200px;
+  text-align: center; /* Center the text within the h3 element */
+  margin: 0;
+  border-radius: 10px;; /* Remove default margin to ensure it's centered */
+}
+
+
 
 .show-preview-details h2 {
   margin-bottom: 10px;
   font-size: 1.5rem;
 }
+
 
 .show-preview-details p {
   color: #555;
