@@ -1,7 +1,7 @@
 import React ,  {useState , useEffect} from "react"
-import React, { useState, useEffect } from "react";
 
-export const showDetail = () => {
+
+export const ShowDetail = () => {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,18 +21,7 @@ export const showDetail = () => {
       });
   }, []);
 
-  const handleNewData = (id) => {
-    fetch(`https://podcast-api.netlify.app/id/${id}`)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("Fetched data:", responseData);
-        setData(responseData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-    
-      });
-  };
+
 
   useEffect(()=>{
 
@@ -51,7 +40,7 @@ export const showDetail = () => {
           <h1>The Inclusive Prodcast</h1>
 
           {showData.map((show, showIndex) => (
-            <div key={showIndex} className="show-preview-card" onClick={handleNewData}>
+            <div key={showIndex} className="show-preview-card">
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <div className="show-preview-details">
