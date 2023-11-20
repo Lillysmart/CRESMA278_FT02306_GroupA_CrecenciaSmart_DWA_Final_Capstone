@@ -36,6 +36,17 @@ export const ShowPreview = () => {
 
   // Check if data is present
   const showData = data || [];
+  const genresMap = {
+    1: "Personal Growth",
+    2: "True Crime and Investigative Journalism",
+    3: "History",
+    4: "Comedy",
+    5: "Entertainment",
+    6: "Business",
+    7: "Fiction",
+    8: "News",
+    9: "Kids and Family",
+  };
 
   return (
     <div className="show-preview-container">
@@ -67,7 +78,25 @@ export const ShowPreview = () => {
                   })}
                 </p>
 
-                <p className="showgenre">Genre : {show.genres}</p>
+                {show.genres && show.genres.length > 0 && (
+                  <p className="showgenre">
+                    Genre:{" "}
+                    {show.genres
+                      .map((genreId) => {
+                        const mappedGenre = genresMap[genreId.toString()];
+                        console.log(
+                          "Genre ID:",
+                          genreId,
+                          typeof genreId,
+                          "Mapped Genre:",
+                          mappedGenre
+                        );
+                        return mappedGenre;
+                      })
+                      .join(", ")}
+                  </p>
+                )}
+
                 <p className="showid"> Id :{show.id}</p>
               </div>
             </div>
