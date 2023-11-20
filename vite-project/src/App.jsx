@@ -1,11 +1,16 @@
 import React ,{useState , useEffect} from "react"
+import {Routes , Route} from "react-router-dom"
 
 import { ShowPreview } from "./Components/Preview"
 
  const App =()=>{
     return (
+
+
         <div>
-            <ShowPreview/>
+        <Routes>
+            <Route path="/" element ={<ShowPreview/>}/>
+        </Routes>
         </div>
     )
  }
