@@ -29,13 +29,10 @@ export const ShowPreview = () => {
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
-    
       });
   };
 
-  useEffect(()=>{
-
-  }, [])
+  useEffect(() => {}, []);
 
   // Check if data is present
   const showData = data || [];
@@ -50,7 +47,11 @@ export const ShowPreview = () => {
           <h1>The Inclusive Prodcast</h1>
 
           {showData.map((show, showIndex) => (
-            <div key={showIndex} className="show-preview-card" onClick={handleNewData}>
+            <div
+              key={showIndex}
+              className="show-preview-card"
+              onClick={handleNewData}
+            >
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <div className="show-preview-details">
@@ -58,10 +59,16 @@ export const ShowPreview = () => {
                 <h3>Seasons :{show.seasons} </h3>
                 {/* Assuming show.updated is a valid Date object */}
                 <p>
-                  Updated: {new Date(show.updated).toLocaleDateString("en-US")}
+                  Updated:{" "}
+                  {new Date(show.updated).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                  })}
                 </p>
-                <p className="showgenre">Genre : {show.genres  }</p>
-                <p className ="showid"> Id :{show.id}</p>
+
+                <p className="showgenre">Genre : {show.genres}</p>
+                <p className="showid"> Id :{show.id}</p>
               </div>
             </div>
           ))}
