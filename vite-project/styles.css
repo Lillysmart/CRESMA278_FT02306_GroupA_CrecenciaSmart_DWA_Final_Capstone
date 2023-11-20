@@ -1,15 +1,15 @@
 /* styles.css */
-h1{
-text-align: center;
-}
+
 .show-preview-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
+  width: 100%; /* Set the width to 100% */
   max-width: 900px;
-
   overflow: hidden;
   text-align: center;
+  margin: 0 auto; /* Center the card horizontally */
 }
+
 
 .show-preview-card img {
   width: 300px;
