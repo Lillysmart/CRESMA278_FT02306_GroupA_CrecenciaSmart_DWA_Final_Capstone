@@ -26,11 +26,14 @@ export const ShowPreview = () => {
   const showData = data || [];
 
   // Function to handle click on a show
-  const handleShowClick = (showId) => {
-    // Navigate to the show details page
-    navigate(`/id/${showId}`);
-  };
-
+ 
+    const handleShowClick = (showId) => {
+      // Navigate to the show details page
+      navigate(`/podcast-api.netlify.app/id/${showId}`);
+      
+    };
+    
+  
   return (
     <div className="show-preview-container">
       {loading && <p>Loading...</p>}
