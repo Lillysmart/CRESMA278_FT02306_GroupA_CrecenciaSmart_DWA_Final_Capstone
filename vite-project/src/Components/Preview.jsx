@@ -22,13 +22,11 @@ export const ShowPreview = () => {
       });
   }, []);
 
-  // Check if data is present
   const showData = data || [];
 
-  // Function to handle click on a show
+
  
   const handleShowClick = (showId) => {
-    // Navigate to the show details page
     navigate(`/id/${showId}`);
   };
   
@@ -53,7 +51,7 @@ export const ShowPreview = () => {
               <div className="show-preview-details">
                 <p>{show.description}</p>
                 <h3>Seasons :{show.seasons} </h3>
-                {/* Assuming show.updated is a valid Date object */}
+              
                 <p>
                   Updated: {new Date(show.updated).toLocaleDateString("en-US")}
                 </p>

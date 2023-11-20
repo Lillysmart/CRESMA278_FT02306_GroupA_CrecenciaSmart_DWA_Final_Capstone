@@ -1,11 +1,13 @@
+// ShowDetail.jsx
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 export const ShowDetail = () => {
   const { id } = useParams();
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook to navigate between pages
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -15,7 +17,6 @@ export const ShowDetail = () => {
           throw new Error(`Error fetching show details: ${response.status}`);
         }
         const responseData = await response.json();
-        console.log("Fetched show details:", responseData);
         setShowDetails(responseData);
         setLoading(false);
       } catch (fetchError) {
@@ -28,26 +29,34 @@ export const ShowDetail = () => {
     fetchShowDetails();
   }, [id]);
 
+  const handleBackClick = () => {
+    // Navigate back to the preview page
+    navigate('/');
+  };
+
   if (loading) {
-    return <p>Loading...</p>;
+    return <p className="loading-message">Loading...</p>;
   }
 
   if (error) {
-    return <p>{error}</p>;
+    return <p className="error-message">{error}</p>;
   }
 
   return (
-    <div>
+    <div className="show-container">
       {showDetails && (
-        <div>
-          <h1>{showDetails.title}</h1>
-          <img src={showDetails.image} alt={showDetails.title} />
-          <p>Description: {showDetails.description}</p>
-          <p>Seasons: {showDetails.seasons.length}</p>
+        <div className="show-card">
+          <button className="back-button" onClick={handleBackClick}>
+            Back to Preview
+          </button>
+          <h1 className="show-title">{showDetails.title}</h1>
+          <img className="show-image" src={showDetails.image} alt={showDetails.title} />
+          <p className="show-description">Description: {showDetails.description}</p>
+          <p className="show-seasons">Seasons: {showDetails.seasons.length}</p>
           {showDetails.seasons.map((season, index) => (
-            <div key={index}>
-              <h3>{season.title}</h3>
-              <p>Number of Episodes: {season.episodes.length}</p>
+            <div key={index} className="season-container">
+              <h3 className="season-title">{season.title}</h3>
+              <p className="episode-count">Number of Episodes: {season.episodes.length}</p>
             </div>
           ))}
         </div>

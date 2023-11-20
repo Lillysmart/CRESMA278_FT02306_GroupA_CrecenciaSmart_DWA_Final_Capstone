@@ -69,3 +69,35 @@
 .showid{
   display: none;
 }
+
+.show-container {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  width: 100%; /* Set the width to 100% */
+  max-width: 900px;
+  overflow: hidden;
+  text-align: center;
+  margin: 0 auto; /* Center the card horizontally */
+}
+
+.back-button {
+  /* Styles for the back button */
+  background-color: #3498db;
+  color: #fff;
+  padding: 8px 12px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+}
+
+
+
+.show-card img {
+  width: 500px;
+  height: auto;
+  border-radius: 8px 8px 0 0;
+  margin: 0 auto;
+  display: block;
+}
+
