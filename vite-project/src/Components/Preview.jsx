@@ -69,7 +69,7 @@ export const ShowPreview = () => {
                 <p>{show.description}</p>
                 <h3>Seasons :{show.seasons} </h3>
                 {/* Assuming show.updated is a valid Date object */}
-                <p>
+                <p  className="show-updated">
                   Updated:{" "}
                   {new Date(show.updated).toLocaleDateString("en-GB", {
                     day: "numeric",
