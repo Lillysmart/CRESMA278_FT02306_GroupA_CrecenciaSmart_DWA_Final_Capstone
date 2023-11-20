@@ -8,18 +8,24 @@ export const ShowDetail = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`https://podcast-api.netlify.app/id/${id}`)
-      .then((response) => response.json())
-      .then((responseData) => {
+    const fetchShowDetails = async () => {
+      try {
+        const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
+        if (!response.ok) {
+          throw new Error(`Error fetching show details: ${response.status}`);
+        }
+        const responseData = await response.json();
         console.log("Fetched show details:", responseData);
         setShowDetails(responseData);
         setLoading(false);
-      })
-      .catch((fetchError) => {
+      } catch (fetchError) {
         console.error("Fetch error:", fetchError);
         setError("Error fetching show details. Please try again later.");
         setLoading(false);
-      });
+      }
+    };
+
+    fetchShowDetails();
   }, [id]);
 
   if (loading) {
