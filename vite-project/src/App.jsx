@@ -10,6 +10,7 @@ import { ShowPreview } from "./Components/Preview"
         <div>
         <Routes>
             <Route path="/" element ={<ShowPreview/>}/>
+            <Route path="/books" element ={<h1> Hello there</h1>}/>
         </Routes>
         </div>
     )
