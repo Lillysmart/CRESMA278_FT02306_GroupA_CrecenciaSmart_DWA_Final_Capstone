@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 export const ShowPreview = () => {
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate(); // Hook to navigate between pages
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -20,32 +22,13 @@ export const ShowPreview = () => {
       });
   }, []);
 
-  const handleNewData = (id) => {
-    fetch(`https://podcast-api.netlify.app/id/${id}`)
-      .then((response) => response.json())
-      .then((responseData) => {
-        console.log("Fetched data:", responseData);
-        setData(responseData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  };
-
-  useEffect(() => {}, []);
-
   // Check if data is present
   const showData = data || [];
-  const genresMap = {
-    1: "Personal Growth",
-    2: "True Crime and Investigative Journalism",
-    3: "History",
-    4: "Comedy",
-    5: "Entertainment",
-    6: "Business",
-    7: "Fiction",
-    8: "News",
-    9: "Kids and Family",
+
+  // Function to handle click on a show
+  const handleShowClick = (showId) => {
+    // Navigate to the show details page
+    navigate(`/id/${showId}`);
   };
 
   return (
@@ -61,7 +44,7 @@ export const ShowPreview = () => {
             <div
               key={showIndex}
               className="show-preview-card"
-              onClick={handleNewData}
+              onClick={() => handleShowClick(show.id)}
             >
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
@@ -69,34 +52,10 @@ export const ShowPreview = () => {
                 <p>{show.description}</p>
                 <h3>Seasons :{show.seasons} </h3>
                 {/* Assuming show.updated is a valid Date object */}
-                <p  className="show-updated">
-                  Updated:{" "}
-                  {new Date(show.updated).toLocaleDateString("en-GB", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
+                <p>
+                  Updated: {new Date(show.updated).toLocaleDateString("en-US")}
                 </p>
-
-                {show.genres && show.genres.length > 0 && (
-                  <p className="showgenre">
-                    Genre:{" "}
-                    {show.genres
-                      .map((genreId) => {
-                        const mappedGenre = genresMap[genreId.toString()];
-                        console.log(
-                          "Genre ID:",
-                          genreId,
-                          typeof genreId,
-                          "Mapped Genre:",
-                          mappedGenre
-                        );
-                        return mappedGenre;
-                      })
-                      .join(", ")}
-                  </p>
-                )}
-
+                <p className="showgenre">Genre : {show.genres.join(", ")}</p>
                 <p className="showid"> Id :{show.id}</p>
               </div>
             </div>
