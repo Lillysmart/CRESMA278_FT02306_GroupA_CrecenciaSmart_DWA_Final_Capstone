@@ -82,15 +82,22 @@
 
 .back-button {
   /* Styles for the back button */
-  background-color: #3498db;
-  color: #fff;
+  background-color: #fffefe;
+  color: #1e5971;
+  font-weight: bolder;
   padding: 8px 12px;
   margin-bottom: 10px;
   cursor: pointer;
   border: none;
-  border-radius: 4px;
+  border: solid rgb(5, 5, 8) 1px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
-
+.back-button:hover {
+  background-color: #2980b9; /* Change the background color on hover */
+  color: #eee; /* Change the text color on hover */
+}
 
 
 .show-card img {
