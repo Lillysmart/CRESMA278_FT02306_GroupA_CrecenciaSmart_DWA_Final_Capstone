@@ -77,6 +77,8 @@
   max-width: 900px;
   overflow: hidden;
   text-align: center;
+  padding-top: 10px;
+  border: solid #1e0000 0.1px;
   margin: 0 auto; /* Center the card horizontally */
 }
 
@@ -101,7 +103,7 @@
 
 
 .show-card img {
-  width: 500px;
+  width: 200px;
   height: auto;
   border-radius: 8px 8px 0 0;
   margin: 0 auto;
