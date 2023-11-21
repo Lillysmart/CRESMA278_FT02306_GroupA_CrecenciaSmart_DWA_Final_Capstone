@@ -1,8 +1,6 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-
-// ... (import statements)
 // ... (import statements)
 
 export const ShowDetail = () => {
@@ -10,7 +8,7 @@ export const ShowDetail = () => {
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedSeason, setSelectedSeason] = useState(null); // New state for selected season
+  const [selectedSeason, setSelectedSeason] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -41,14 +39,6 @@ export const ShowDetail = () => {
     setSelectedSeason(event.target.value);
   };
 
-  if (loading) {
-    return <p className="loading-message">Loading...</p>;
-  }
-
-  if (error) {
-    return <p className="error-message">{error}</p>;
-  }
-
   return (
     <div className="show-container">
       {showDetails && (
@@ -59,9 +49,16 @@ export const ShowDetail = () => {
           <h1 className="show-title">{showDetails.title}</h1>
           <img className="show-image" src={showDetails.image} alt={showDetails.title} />
           <p className="show-description">{showDetails.description}</p>
-          <p className="show-seasons">
-            Season:
-            <select onChange={handleSeasonSelect} value={selectedSeason || ''}>
+
+          {/* Styled Season Selection */}
+          <div className="season-selection">
+            <label htmlFor="seasonSelect" className="season-label"> Season:</label>
+            <select
+              id="seasonSelect"
+              onChange={handleSeasonSelect}
+              value={selectedSeason || ''}
+              className="season-select"
+            >
               <option value="" disabled>Select a season</option>
               {showDetails.seasons.map((season) => (
                 <option key={season.season} value={season.season}>
@@ -69,7 +66,7 @@ export const ShowDetail = () => {
                 </option>
               ))}
             </select>
-          </p>
+          </div>
 
           {/* Display selected season information */}
           {selectedSeason && (
@@ -79,7 +76,7 @@ export const ShowDetail = () => {
                 if (season.season.toString() === selectedSeason) {
                   return (
                     <div key={season.season} className="season-container">
-                      <h3>{season.title}</h3>
+                      
                       {season.episodes && season.episodes.length > 0 ? (
                         season.episodes.map((episode) => (
                           <div key={episode.episode} className="episode-card">

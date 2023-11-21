@@ -122,5 +122,35 @@
  
 }
 
+.season-selection {
+  margin-top: 20px;
+}
+
+.season-label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+.season-select {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+  cursor: pointer;
+}
+
+.selected-season-info {
+  margin-top: 20px;
+}
+
+.season-container {
+  margin-top: 20px;
+}
+
+.episode-card {
+  margin-top: 15px;
+}
+
 
 
