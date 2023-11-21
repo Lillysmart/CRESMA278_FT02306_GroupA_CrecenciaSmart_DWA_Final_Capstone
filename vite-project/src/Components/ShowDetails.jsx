@@ -1,13 +1,15 @@
-// ShowDetail.jsx
+
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
+// ... (import statements)
 
 export const ShowDetail = () => {
   const { id } = useParams();
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Hook to navigate between pages
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchShowDetails = async () => {
@@ -30,7 +32,6 @@ export const ShowDetail = () => {
   }, [id]);
 
   const handleBackClick = () => {
-    // Navigate back to the preview page
     navigate('/');
   };
 
@@ -53,12 +54,25 @@ export const ShowDetail = () => {
           <img className="show-image" src={showDetails.image} alt={showDetails.title} />
           <p className="show-description">Description: {showDetails.description}</p>
           <p className="show-seasons">Seasons: {showDetails.seasons.length}</p>
-          {showDetails.seasons.map((season, index) => (
-            <div key={index} className="season-container">
-              <h3 className="season-title">{season.title}</h3>
-              <p> </p>
-            </div>
-          ))}
+
+          {/* Episodes Section */}
+          <div className="episodes-section">
+            <h2>Episodes</h2>
+            {showDetails.episodes && showDetails.episodes.length > 0 ? (
+              showDetails.episodes.map((episode) => (
+                <div key={episode.episode} className="episode-card">
+                  <h3>{episode.title}</h3>
+                  <p>{episode.description}</p>
+                  <audio controls>
+                    <source src={episode.file} type="audio/mp3" />
+                    Your browser does not support the audio element.
+                  </audio>
+                </div>
+              ))
+            ) : (
+              <p>No episodes available.</p>
+            )}
+          </div>
         </div>
       )}
     </div>
