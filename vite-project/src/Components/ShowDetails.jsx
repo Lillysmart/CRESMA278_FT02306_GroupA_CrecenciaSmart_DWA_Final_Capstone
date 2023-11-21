@@ -52,7 +52,9 @@ export const ShowDetail = () => {
         <button className="back-button" onClick={handleBackClick}>
           Back to Preview
         </button>
-        <button>Hello</button>
+        <input className="hello-button" type="search"/>
+
+        <button className="favourite-button">Favourite</button>
       </div>
       <div className="show-container">
         {showDetails && (
