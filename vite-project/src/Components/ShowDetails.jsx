@@ -3,12 +3,14 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
 // ... (import statements)
+// ... (import statements)
 
 export const ShowDetail = () => {
   const { id } = useParams();
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedSeason, setSelectedSeason] = useState(null); // New state for selected season
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -35,6 +37,10 @@ export const ShowDetail = () => {
     navigate('/');
   };
 
+  const handleSeasonSelect = (event) => {
+    setSelectedSeason(event.target.value);
+  };
+
   if (loading) {
     return <p className="loading-message">Loading...</p>;
   }
@@ -52,27 +58,49 @@ export const ShowDetail = () => {
           </button>
           <h1 className="show-title">{showDetails.title}</h1>
           <img className="show-image" src={showDetails.image} alt={showDetails.title} />
-          <p className="show-description">Description: {showDetails.description}</p>
-          <p className="show-seasons">Seasons: {showDetails.seasons.length}</p>
+          <p className="show-description">{showDetails.description}</p>
+          <p className="show-seasons">
+            Season:
+            <select onChange={handleSeasonSelect} value={selectedSeason || ''}>
+              <option value="" disabled>Select a season</option>
+              {showDetails.seasons.map((season) => (
+                <option key={season.season} value={season.season}>
+                  {season.season}
+                </option>
+              ))}
+            </select>
+          </p>
 
-          {/* Episodes Section */}
-          <div className="episodes-section">
-            <h2>Episodes</h2>
-            {showDetails.episodes && showDetails.episodes.length > 0 ? (
-              showDetails.episodes.map((episode) => (
-                <div key={episode.episode} className="episode-card">
-                  <h3>{episode.title}</h3>
-                  <p>{episode.description}</p>
-                  <audio controls>
-                    <source src={episode.file} type="audio/mp3" />
-                    Your browser does not support the audio element.
-                  </audio>
-                </div>
-              ))
-            ) : (
-              <p>No episodes available.</p>
-            )}
-          </div>
+          {/* Display selected season information */}
+          {selectedSeason && (
+            <div className="selected-season-info">
+              <h2>{`Season ${selectedSeason}`}</h2>
+              {showDetails.seasons.map((season) => {
+                if (season.season.toString() === selectedSeason) {
+                  return (
+                    <div key={season.season} className="season-container">
+                      <h3>{season.title}</h3>
+                      {season.episodes && season.episodes.length > 0 ? (
+                        season.episodes.map((episode) => (
+                          <div key={episode.episode} className="episode-card">
+                            <h4>Episode {episode.episode} : {episode.title}</h4>
+                            <p>{episode.description}</p>
+                            <audio controls>
+                              <source src={episode.file} type="audio/mp3" />
+                              Your browser does not support the audio element.
+                            </audio>
+                          </div>
+                        ))
+                      ) : (
+                        <p>No episodes available for this season.</p>
+                      )}
+                    </div>
+                  );
+                }
+                return null;
+              })}
+            </div>
+          )}
         </div>
       )}
     </div>
