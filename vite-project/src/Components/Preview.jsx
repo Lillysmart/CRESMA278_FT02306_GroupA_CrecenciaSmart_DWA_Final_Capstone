@@ -24,13 +24,10 @@ export const ShowPreview = () => {
 
   const showData = data || [];
 
-
- 
   const handleShowClick = (showId) => {
     navigate(`/id/${showId}`);
   };
-  
-  
+
   return (
     <div className="show-preview-container">
       {loading && <p>Loading...</p>}
@@ -51,12 +48,12 @@ export const ShowPreview = () => {
               <div className="show-preview-details">
                 <p>{show.description}</p>
                 <h3>Seasons :{show.seasons} </h3>
-              
+
                 <p>
-                  Updated: {new Date(show.updated).toLocaleDateString("en-US")}
+                  Updated: {new Date(show.updated).toLocaleDateString("en-Uk")}
                 </p>
                 <p className="showgenre">Genre : {show.genres.join(", ")}</p>
-                <p className="showid"> Id :{show.id}</p>
+               
               </div>
             </div>
           ))}
