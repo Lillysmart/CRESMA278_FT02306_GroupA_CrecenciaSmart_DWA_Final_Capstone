@@ -81,25 +81,45 @@
   margin: 0 auto; /* Center the card horizontally */
 }
 
-.back-button {
-  /* Styles for the back button */
-  background-color: #fffefe;
-  color: #1e5971;
-  font-weight: bolder;
-  padding: 8px 12px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  border: none;
-  border: solid rgb(5, 5, 8) 1px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-.back-button:hover {
-  background-color: #2980b9; /* Change the background color on hover */
-  color: #eee; /* Change the text color on hover */
+
+.fixed-buttons {
+  position:sticky;
+  top:0px;
+  display: flex;
+  justify-content: space-around;
+  background-color: #f1f0f0;
+  height:40px
 }
 
+ .back-button{
+  background-color: #ffffff;
+  color: #000000;
+  padding: 8px 16px;
+ 
+  cursor: pointer;
+  font-size: 1rem;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 60px;
+}
+.hello-button {
+
+  background-color: #fff;
+  color: #000000;
+  border: 1px solid #ccc;
+  padding: 8px 16px;
+
+  cursor: pointer;
+  font-size: 1rem;
+  outline: none;
+  border-radius: 60px;
+}
+ .back-button:hover {
+  background-color: #f5f5f5;
+}
+.hello-button:hover {
+  background-color: #f5f5f5;
+}
 
 .show-card img {
   width: 200px;
