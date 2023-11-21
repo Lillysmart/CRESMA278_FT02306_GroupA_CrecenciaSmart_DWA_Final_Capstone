@@ -78,7 +78,6 @@
   overflow: hidden;
   text-align: center;
   padding-top: 10px;
-  border: solid #1e0000 0.1px;
   margin: 0 auto; /* Center the card horizontally */
 }
 
@@ -109,4 +108,19 @@
   margin: 0 auto;
   display: block;
 }
+
+.episode-card{
+ 
+  border-radius: 8px;
+  width: 100%; /* Set the width to 100% */
+  max-width: 900px;
+ 
+  text-align: center;
+  margin: 0 auto;
+  background-color: #f1f0f0;
+  margin-bottom: 10px;
+ 
+}
+
+
 
