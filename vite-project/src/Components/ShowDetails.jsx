@@ -56,7 +56,7 @@ export const ShowDetail = () => {
           {showDetails.seasons.map((season, index) => (
             <div key={index} className="season-container">
               <h3 className="season-title">{season.title}</h3>
-              <p> {season.episode.title}</p>
+              <p> </p>
             </div>
           ))}
         </div>
