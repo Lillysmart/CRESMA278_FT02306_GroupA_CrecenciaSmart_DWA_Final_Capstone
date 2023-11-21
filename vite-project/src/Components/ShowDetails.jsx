@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-// ... (import statements)
+import {Favourite } from "./favourite"
 
 export const ShowDetail = () => {
   const { id } = useParams();
@@ -37,6 +37,10 @@ export const ShowDetail = () => {
   const handleSeasonSelect = (event) => {
     setSelectedSeason(event.target.value);
   };
+
+  const handleFavourite=()=>{
+  <Favourite/>
+  }
 
   if (loading) {
     return <p>Loading...</p>;
@@ -101,6 +105,8 @@ export const ShowDetail = () => {
                                 <source src={episode.file} type="audio/mp3" />
                                 Your browser does not support the audio element.
                               </audio>
+<br/>
+                              <button className="add-favourite-button" onClick={handleFavourite}>Add to Favourite</button>
                             </div>
                           ))
                         ) : (
