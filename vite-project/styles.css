@@ -194,7 +194,7 @@ background-color: #ffffff;
 font-weight: bolder;
 border: 1px solid #ccc;
   padding: 8px 16px;
-
+align-self: center;
   cursor: pointer;
   font-size: 0.9rem;
   outline: none;

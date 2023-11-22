@@ -109,6 +109,7 @@ export const ShowDetail = () => {
                                 <source src={episode.file} type="audio/mp3" />
                                 Your browser does not support the audio element.
                               </audio>
+                              <br/>
                               <button
                                 className="add-favourite-button"
                                 onClick={() => handleAddToFavourite(episode)}
