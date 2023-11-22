@@ -2,18 +2,15 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ShowPreview } from "./Components/Preview";
 import { ShowDetail } from "./Components/ShowDetails";
-import {Favourite} from "./Components/Favourite"
-
-
-
+import { Favourites } from "./Components/Favourites";
 
 const App = () => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<ShowPreview />} />
-        <Route path="/id/:id" element={<ShowDetail />} />\
-        <Route path ="/favourite" element={<Favourite/>} />
+        <Route path="/id/:id" element={<ShowDetail />} />
+        <Route path="/favourites" element={<Favourites />} />
       </Routes>
     </div>
   );
