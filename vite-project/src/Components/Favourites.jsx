@@ -2,8 +2,9 @@
 import React from 'react';
 import { useFavoritesContext } from './FavoritesContext';
 
-const Favourites = () => {
+export const Favourites = () => {
   const { favorites, removeFromFavorites } = useFavoritesContext();
+  console.log('Rendering Favourites component. Current favorites:', favorites);
 
   const handleRemoveFromFavorites = (episodeId) => {
     removeFromFavorites(episodeId);
@@ -11,17 +12,17 @@ const Favourites = () => {
 
   return (
     <div>
-      <h1>Your Favorites</h1>
+      <h1>Your Favorites:</h1>
       {favorites.length > 0 ? (
         <ul>
-          {favorites.map(({ episode, show, season }) => (
-            <li key={episode.id}>
+          {favorites.map(({ episode, show }) => (
+            <li key={episode.episode} className="favorite-item">
               <div>
-                <strong>{`Show: ${show}, Season ${season}, Episode ${episode.episode}: ${episode.title}`}</strong>
+                <strong>{`Show: ${show}, Episode ${episode.episode}: ${episode.title}`}</strong>
                 <p>{episode.description}</p>
               </div>
               <div>
-                <button onClick={() => handleRemoveFromFavorites(episode.id)}>
+                <button onClick={() => handleRemoveFromFavorites(episode.episode)}>
                   Remove from Favorites
                 </button>
               </div>
