@@ -39,18 +39,25 @@ import { useParams, useNavigate } from "react-router-dom";
     setSelectedSeason(event.target.value);
   };
 
-  const isFavorite = (episodeId) => {
-    return favorites.some((fav) => fav.episode.id === episodeId);
+  const isFavorite = (episodeNumber) => {
+    console.log(`Checking if episode ${episodeNumber} is a favorite`);
+    return favorites.some((fav) => fav.episode.episode === episodeNumber);
   };
-
+  
   const handleAddToFavourite = (episode) => {
+    console.log('Adding to favorites:', episode);
+    console.log('Is it already a favorite?', isFavorite(episode.episode));
+  
     setFavorites((prevFavorites) => {
-      if (!isFavorite(episode.id)) {
-        return [...prevFavorites, { episode, show: showDetails }];
+      if (!isFavorite(episode.episode)) {
+        const newFavorites = [...prevFavorites, { episode, show: showDetails.title }];
+        console.log('New favorites:', newFavorites);
+        return newFavorites;
       }
       return prevFavorites;
     });
   };
+  
 
   const handleRemoveFromFavorites = (episodeId) => {
     setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.episode.id !== episodeId));
@@ -127,11 +134,11 @@ import { useParams, useNavigate } from "react-router-dom";
                                 </button>
                               ) : (
                                 <button
-                                  className="add-favourite-button"
-                                  onClick={() => handleAddToFavourite(episode)}
-                                >
-                                  Add to Favorites
-                                </button>
+                                className="add-favourite-button"
+                                onClick={() => handleAddToFavourite(episode)}
+                              >
+                                Add to Favorites
+                              </button>
                               )}
                             </div>
                           ))
