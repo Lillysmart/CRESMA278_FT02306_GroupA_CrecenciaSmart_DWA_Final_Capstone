@@ -2,7 +2,8 @@
 import React from 'react';
 import { useFavorites } from './useFavourite' // Adjust the path
 
- export const Favourites = () => {
+export// Favourites.js
+const Favourites = () => {
   const { favorites, removeFromFavorites } = useFavorites();
 
   const handleRemoveFromFavorites = (episodeId) => {
@@ -14,13 +15,17 @@ import { useFavorites } from './useFavourite' // Adjust the path
       <h1>Your Favorites</h1>
       {favorites.length > 0 ? (
         <ul>
-          {favorites.map((episode) => (
+          {favorites.map(({ episode, show }) => (
             <li key={episode.id}>
-              <strong>{`Episode ${episode.episode}: ${episode.title}`}</strong>
-              <p>{episode.description}</p>
-              <button onClick={() => handleRemoveFromFavorites(episode.id)}>
-                Remove from Favorites
-              </button>
+              <div>
+                <strong>{`Show: ${show.title}, Episode ${episode.episode}: ${episode.title}`}</strong>
+                <p>{episode.description}</p>
+              </div>
+              <div>
+                <button onClick={() => handleRemoveFromFavorites(episode.id)}>
+                  Remove from Favorites
+                </button>
+              </div>
             </li>
           ))}
         </ul>
@@ -31,4 +36,4 @@ import { useFavorites } from './useFavourite' // Adjust the path
   );
 };
 
-export default Favourites;
+export default Favourites
