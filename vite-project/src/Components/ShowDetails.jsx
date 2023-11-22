@@ -1,14 +1,15 @@
 // ShowDetail.js
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { useFavoritesContext } from './FavoritesContext';
 
- export const ShowDetail = () => {
+export const ShowDetail = () => {
   const { id } = useParams();
   const [showDetails, setShowDetails] = useState(null);
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
-  const [favorites, setFavorites] = useState([]);
+  const { addToFavorites, favorites, removeFromFavorites } = useFavoritesContext();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -40,26 +41,15 @@ import { useParams, useNavigate } from "react-router-dom";
   };
 
   const isFavorite = (episodeNumber) => {
-    console.log(`Checking if episode ${episodeNumber} is a favorite`);
     return favorites.some((fav) => fav.episode.episode === episodeNumber);
   };
-  const handleAddToFavourite = (episode) => {
-    console.log('Adding to favorites:', episode);
-    console.log('Is it already a favorite?', isFavorite(episode));
-  
-    setFavorites((prevFavorites) => {
-      if (!isFavorite(episode)) {
-        const newFavorites = [...prevFavorites, { episode, show: showDetails.title }];
-        console.log('New favorites:', newFavorites);
-        return newFavorites;
-      }
-      return prevFavorites;
-    });
+
+  const handleAddToFavorites = (episode) => {
+    addToFavorites(episode, showDetails.title, selectedSeason);
   };
-  
 
   const handleRemoveFromFavorites = (episodeId) => {
-    setFavorites((prevFavorites) => prevFavorites.filter((fav) => fav.episode.id !== episodeId));
+    removeFromFavorites(episodeId);
   };
 
   const handleFavouriteClick = () => {
@@ -78,9 +68,9 @@ import { useParams, useNavigate } from "react-router-dom";
         </button>
       </div>
       <div className="show-container">
-        {loading ? ( // Display loading message while data is being fetched
+        {loading ? (
           <p>Loading...</p>
-        ) : showDetails ? ( // Display show details if available
+        ) : showDetails ? (
           <div className="show-card">
             <div className="show-top-info">
               <h1 className="show-title">{showDetails.title}</h1>
@@ -124,20 +114,20 @@ import { useParams, useNavigate } from "react-router-dom";
                                 Your browser does not support the audio element.
                               </audio>
                               <br />
-                              {isFavorite(episode.id) ? (
+                              {isFavorite(episode.episode) ? (
                                 <button
                                   className="remove-favourite-button"
-                                  onClick={() => handleRemoveFromFavorites(episode.id)}
+                                  onClick={() => handleRemoveFromFavorites(episode.episode)}
                                 >
                                   Remove from Favorites
                                 </button>
                               ) : (
                                 <button
-                                className="add-favourite-button"
-                                onClick={() => handleAddToFavourite(episode)}
-                              >
-                                Add to Favorites
-                              </button>
+                                  className="add-favourite-button"
+                                  onClick={() => handleAddToFavorites(episode)}
+                                >
+                                  Add to Favorites
+                                </button>
                               )}
                             </div>
                           ))

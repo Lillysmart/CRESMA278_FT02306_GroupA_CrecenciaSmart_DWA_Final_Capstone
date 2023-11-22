@@ -1,25 +1,36 @@
 // Favourites.js
-import React, { useEffect } from 'react';
-import { useFavorites } from './useFavourite'; // Adjust the path
+import React from 'react';
+import { useFavoritesContext } from './FavoritesContext';
 
-
-export const Favourites = () => {
-  const { favorites, removeFromFavorites } = useFavorites();
-
-  useEffect(() => {
-    console.log('Favorites updated:', favorites);
-  }, [favorites]);
+const Favourites = () => {
+  const { favorites, removeFromFavorites } = useFavoritesContext();
 
   const handleRemoveFromFavorites = (episodeId) => {
-    console.log('Removing from favorites:', episodeId);
     removeFromFavorites(episodeId);
   };
 
-  console.log('Rendering Favourites component. Current favorites:', favorites);
-
   return (
     <div>
-      {/* ... Rest of the component remains unchanged ... */}
+      <h1>Your Favorites</h1>
+      {favorites.length > 0 ? (
+        <ul>
+          {favorites.map(({ episode, show, season }) => (
+            <li key={episode.id}>
+              <div>
+                <strong>{`Show: ${show}, Season ${season}, Episode ${episode.episode}: ${episode.title}`}</strong>
+                <p>{episode.description}</p>
+              </div>
+              <div>
+                <button onClick={() => handleRemoveFromFavorites(episode.id)}>
+                  Remove from Favorites
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p>No favorites yet. Add some from the episodes!</p>
+      )}
     </div>
   );
 };
