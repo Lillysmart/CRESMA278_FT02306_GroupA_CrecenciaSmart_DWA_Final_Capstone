@@ -43,13 +43,12 @@ import { useParams, useNavigate } from "react-router-dom";
     console.log(`Checking if episode ${episodeNumber} is a favorite`);
     return favorites.some((fav) => fav.episode.episode === episodeNumber);
   };
-  
   const handleAddToFavourite = (episode) => {
     console.log('Adding to favorites:', episode);
-    console.log('Is it already a favorite?', isFavorite(episode.episode));
+    console.log('Is it already a favorite?', isFavorite(episode));
   
     setFavorites((prevFavorites) => {
-      if (!isFavorite(episode.episode)) {
+      if (!isFavorite(episode)) {
         const newFavorites = [...prevFavorites, { episode, show: showDetails.title }];
         console.log('New favorites:', newFavorites);
         return newFavorites;
