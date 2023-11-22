@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import {Favourite } from "./favourite"
+import { Favourite } from "./Favourite";
 
 export const ShowDetail = () => {
   const { id } = useParams();
@@ -8,6 +8,7 @@ export const ShowDetail = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedSeason, setSelectedSeason] = useState(null);
+  const [favorites, setFavorites] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,9 +39,13 @@ export const ShowDetail = () => {
     setSelectedSeason(event.target.value);
   };
 
-  const handleFavourite=()=>{
-  <Favourite/>
-  }
+  const handleAddToFavourite = (episode) => {
+    setFavorites([...favorites, episode]);
+  };
+
+  const handleFavouriteClick = () => {
+    navigate('/favourites'); // Navigate to the Favourites page
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -56,20 +61,20 @@ export const ShowDetail = () => {
         <button className="back-button" onClick={handleBackClick}>
           Back to Preview
         </button>
-        <input className="hello-button" type="search"/>
+        <input className="hello-button" type="search" />
 
-        <button className="favourite-button">Favourite</button>
+        <button className="favourite-button" onClick={handleFavouriteClick}>
+          Favourite
+        </button>
       </div>
       <div className="show-container">
         {showDetails && (
           <div className="show-card">
             <div className="show-top-info">
-              {/* ... Top info content ... */}
+              <h1 className="show-title">{showDetails.title}</h1>
+              <img className="show-image" src={showDetails.image} alt={showDetails.title} />
+              <p className="show-description">{showDetails.description}</p>
             </div>
-            <h1 className="show-title">{showDetails.title}</h1>
-            <img className="show-image" src={showDetails.image} alt={showDetails.title} />
-            <p className="show-description">{showDetails.description}</p>
-
             {/* Styled Season Selection */}
             <div className="season-selection">
               <label htmlFor="seasonSelect" className="season-label"> Season:</label>
@@ -87,7 +92,6 @@ export const ShowDetail = () => {
                 ))}
               </select>
             </div>
-
             {/* Display selected season information */}
             {selectedSeason && (
               <div className="selected-season-info">
@@ -105,8 +109,12 @@ export const ShowDetail = () => {
                                 <source src={episode.file} type="audio/mp3" />
                                 Your browser does not support the audio element.
                               </audio>
-<br/>
-                              <button className="add-favourite-button" onClick={handleFavourite}>Add to Favourite</button>
+                              <button
+                                className="add-favourite-button"
+                                onClick={() => handleAddToFavourite(episode)}
+                              >
+                                Add to Favourite
+                              </button>
                             </div>
                           ))
                         ) : (
