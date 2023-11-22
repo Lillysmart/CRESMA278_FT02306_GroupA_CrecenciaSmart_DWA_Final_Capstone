@@ -1,38 +1,34 @@
-import React, { useState } from 'react';
+// Favourites.js
+import React from 'react';
+import { useFavorites } from './useFavourite' // Adjust the path
 
-export  const Favourites = ({ location }) => {
-  const [error, setError] = useState(null);
-  const favorites = location.state?.favorites || [];
+ export const Favourites = () => {
+  const { favorites, removeFromFavorites } = useFavorites();
 
-  // Error boundary
-  const handleError = (error) => {
-    console.error('Error in Favourites component:', error);
-    setError('An error occurred. Please try again.');
+  const handleRemoveFromFavorites = (episodeId) => {
+    removeFromFavorites(episodeId);
   };
 
   return (
     <div>
       <h1>Your Favorites</h1>
-      {error ? (
-        <p>{error}</p>
+      {favorites.length > 0 ? (
+        <ul>
+          {favorites.map((episode) => (
+            <li key={episode.id}>
+              <strong>{`Episode ${episode.episode}: ${episode.title}`}</strong>
+              <p>{episode.description}</p>
+              <button onClick={() => handleRemoveFromFavorites(episode.id)}>
+                Remove from Favorites
+              </button>
+            </li>
+          ))}
+        </ul>
       ) : (
-        <>
-          {favorites.length > 0 ? (
-            <ul>
-              {favorites.map((episode, index) => (
-                <li key={index}>
-                  <strong>{`Episode ${episode.episode}: ${episode.title}`}</strong>
-                  <p>{episode.description}</p>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No favorites yet. Add some from the episodes!</p>
-          )}
-        </>
+        <p>No favorites yet. Add some from the episodes!</p>
       )}
     </div>
   );
 };
 
-
+export default Favourites;
