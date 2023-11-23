@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Fuse from 'fuse.js';
+import { useFavoritesContext } from './FavoritesContext'; // Assuming you have a context for favorites
 
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const { favorites } = useFavoritesContext(); // Assuming you have a context for favorites
   const navigate = useNavigate(); // Hook to navigate between pages
 
   // Genre mapping
@@ -47,6 +49,11 @@ export const ShowPreview = () => {
     navigate(`/id/${showId}`);
   };
 
+  const handleFavoriteClick = () => {
+    // Navigate to the favorites page
+    navigate("/favourites");
+  };
+
   return (
     <>
       <div className="show-preview-container">
@@ -63,7 +70,9 @@ export const ShowPreview = () => {
           />
           <label>Genre:</label>
           <input className="title-button" type="search" placeholder="Search by genre..." />
-          <button className="favourite-button">Favourite</button>
+          <button className="favourite-button" onClick={handleFavoriteClick}>
+            View Favorites
+          </button>
         </div>
 
         {loading && <p>Loading...</p>}
@@ -78,14 +87,10 @@ export const ShowPreview = () => {
             >
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
-              <div className="show-preview-details">
-                <p>{show.description}</p>
-                <h3>Seasons: {show.seasons} </h3>
-                <p>
-                  Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
-                </p>
-                <p className="showgenre">Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}</p>
-              </div>
+              <p>{show.description}</p>
+              <h3>Seasons: {show.seasons} </h3>
+              <p>Updated: {new Date(show.updated).toLocaleDateString("en-UK")}</p>
+              <p className="showgenre">Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}</p>
             </div>
           ))}
         </div>
