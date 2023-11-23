@@ -6,8 +6,10 @@ export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const { favorites } = useFavoritesContext(); 
+  const [titleSearchTerm, setTitleSearchTerm] = useState('');
+  const [genreSearchTerm, setGenreSearchTerm] = useState('');
+  const { favorites } = useFavoritesContext();
+  const [selectedGenre, setSelectedGenre] = useState(); // Assuming you have a context for favorites
   const navigate = useNavigate(); // Hook to navigate between pages
 
   // Genre mapping
@@ -22,6 +24,7 @@ export const ShowPreview = () => {
     8: 'News',
     9: 'Kids and Family',
   };
+ 
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -38,23 +41,36 @@ export const ShowPreview = () => {
       });
   }, []);
 
+  const handleGenreChange = (e) => {
+    // Set the selected genre and automatically trigger the filter
+    setGenreSearchTerm(e.target.value);
+    setSelectedGenre(e.target.value);
+  };
+
+
   const showData = data || [];
-  
-  const handleSearch = () => {
-    const searchTermLower = searchTerm.toLowerCase();
-  
+
+  const handleTitleSearch = () => {
+    const titleSearchTermLower = titleSearchTerm.toLowerCase();
+
     const filteredResults = showData.filter((show) => {
       const titleLower = show.title.toLowerCase();
-  
-      // Use includes for a case-insensitive substring search
-      return titleLower.includes(searchTermLower);
+      return titleLower.includes(titleSearchTermLower);
     });
-  
+
     return filteredResults;
   };
-  
 
-  const searchResults = searchTerm ? handleSearch() : showData;
+  const handleGenreSearch = () => {
+    const genreSearchTermLower = genreSearchTerm.toLowerCase();
+
+    const filteredResults = showData.filter((show) => {
+      const genreLower = (show.genres || []).map(id => genreMap[id]).join(", ").toLowerCase();
+      return genreLower.includes(genreSearchTermLower);
+    });
+
+    return filteredResults;
+  };
 
   const handleShowClick = (showId) => {
     navigate(`/id/${showId}`);
@@ -64,6 +80,7 @@ export const ShowPreview = () => {
     // Navigate to the favorites page
     navigate("/favourites");
   };
+
 
   return (
     <>
@@ -76,11 +93,22 @@ export const ShowPreview = () => {
             className="title-button"
             type="search"
             placeholder="Search by title..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={titleSearchTerm}
+            onChange={(e) => setTitleSearchTerm(e.target.value)}
           />
           <label>Genre:</label>
-          <input className="title-button" type="search" placeholder="Search by genre..." />
+          <select
+            className="title-button"
+            value={selectedGenre}
+            onChange={handleGenreChange}
+          >
+            <option value="">All Genres</option>
+            {Object.values(genreMap).map((genre, index) => (
+              <option key={index} value={genre}>
+                {genre}
+              </option>
+            ))}
+          </select>
           <button className="favourite-button" onClick={handleFavoriteClick}>
             View Favorites
           </button>
@@ -90,22 +118,27 @@ export const ShowPreview = () => {
         {error && <p>{error}</p>}
 
         <div>
-          {searchResults.map((show, showIndex) => (
-            <div
-              key={showIndex}
-              className="show-preview-card"
-              onClick={() => handleShowClick(show.id)}
-            >
-              <h2>{show.title}</h2>
-              <img src={show.image} alt={`Show ${showIndex + 1}`} />
-              <p>{show.description}</p>
-              <h3>Seasons: {show.seasons} </h3>
-              <p>Updated: {new Date(show.updated).toLocaleDateString("en-UK")}</p>
-              <p className="showgenre">
-                Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}
-              </p>
-            </div>
-          ))}
+          {showData
+            .filter((show) => (
+              (!selectedGenre || (show.genres && show.genres.map(id => genreMap[id]).includes(selectedGenre)))
+              && show.title.toLowerCase().includes(titleSearchTerm.toLowerCase())
+            ))
+            .map((show, showIndex) => (
+              <div
+                key={showIndex}
+                className="show-preview-card"
+                onClick={() => handleShowClick(show.id)}
+              >
+                <h2>{show.title}</h2>
+                <img src={show.image} alt={`Show ${showIndex + 1}`} />
+                <p>{show.description}</p>
+                <h3>Seasons: {show.seasons} </h3>
+                <p>Updated: {new Date(show.updated).toLocaleDateString("en-UK")}</p>
+                <p className="showgenre">
+                  Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     </>
