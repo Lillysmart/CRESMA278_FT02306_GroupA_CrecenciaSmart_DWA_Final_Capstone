@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Fuse from 'fuse.js';
 
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate(); // Hook to navigate between pages
+
+  // Genre mapping
+  const genreMap = {
+    1: 'Personal Growth',
+    2: 'True Crime and Investigative Journalism',
+    3: 'History',
+    4: 'Comedy',
+    5: 'Entertainment',
+    6: 'Business',
+    7: 'Fiction',
+    8: 'News',
+    9: 'Kids and Family',
+  };
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -24,33 +39,38 @@ export const ShowPreview = () => {
 
   const showData = data || [];
 
+  // Configure Fuse.js for searching titles
+  const fuse = new Fuse(showData, { keys: ['title'] });
+  const searchResults = searchTerm ? fuse.search(searchTerm) : showData;
+
   const handleShowClick = (showId) => {
     navigate(`/id/${showId}`);
   };
 
-  return (<>
- 
-    <div className="show-preview-container">
-    <div className="top-buttons">
-      <label>Sort By:</label>
-        <input className="Search-button" type="search" placeholder=""></input>
-        <label>Title:</label>
-        <input className="title-button" type="search" placeholder="search..."/>
-        <label>Genre:</label>
-        <input className="title-button" type="search" placeholder="search..."/>
-        <button className="favourite-button">
-          Favourite
-        </button>
+  return (
+    <>
+      <div className="show-preview-container">
+        <div className="top-buttons">
+          <label>Sort By:</label>
+          <input className="Search-button" type="search" placeholder=""></input>
+          <label>Title:</label>
+          <input
+            className="title-button"
+            type="search"
+            placeholder="Search by title..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+          <label>Genre:</label>
+          <input className="title-button" type="search" placeholder="Search by genre..." />
+          <button className="favourite-button">Favourite</button>
         </div>
-   
-      {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
 
-      {showData.length > 0 && (
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+
         <div>
-        
-
-          {showData.map((show, showIndex) => (
+          {searchResults.map((show, showIndex) => (
             <div
               key={showIndex}
               className="show-preview-card"
@@ -60,19 +80,16 @@ export const ShowPreview = () => {
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <div className="show-preview-details">
                 <p>{show.description}</p>
-                <h3>Seasons :{show.seasons} </h3>
-
+                <h3>Seasons: {show.seasons} </h3>
                 <p>
-                  Updated: {new Date(show.updated).toLocaleDateString("en-Uk")}
+                  Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
                 </p>
-                <p className="showgenre">Genre : {show.genres.join(", ")}</p>
-               
+                <p className="showgenre">Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}</p>
               </div>
             </div>
           ))}
         </div>
-      )}
-    </div>
+      </div>
     </>
   );
 };
