@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Fuse from 'fuse.js';
 import { useFavoritesContext } from './FavoritesContext'; // Assuming you have a context for favorites
 
 export const ShowPreview = () => {
@@ -8,7 +7,7 @@ export const ShowPreview = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const { favorites } = useFavoritesContext(); // Assuming you have a context for favorites
+  const { favorites } = useFavoritesContext(); 
   const navigate = useNavigate(); // Hook to navigate between pages
 
   // Genre mapping
@@ -40,10 +39,22 @@ export const ShowPreview = () => {
   }, []);
 
   const showData = data || [];
+  
+  const handleSearch = () => {
+    const searchTermLower = searchTerm.toLowerCase();
+  
+    const filteredResults = showData.filter((show) => {
+      const titleLower = show.title.toLowerCase();
+  
+      // Use includes for a case-insensitive substring search
+      return titleLower.includes(searchTermLower);
+    });
+  
+    return filteredResults;
+  };
+  
 
-  // Configure Fuse.js for searching titles
-  const fuse = new Fuse(showData, { keys: ['title'] });
-  const searchResults = searchTerm ? fuse.search(searchTerm) : showData;
+  const searchResults = searchTerm ? handleSearch() : showData;
 
   const handleShowClick = (showId) => {
     navigate(`/id/${showId}`);
@@ -90,7 +101,9 @@ export const ShowPreview = () => {
               <p>{show.description}</p>
               <h3>Seasons: {show.seasons} </h3>
               <p>Updated: {new Date(show.updated).toLocaleDateString("en-UK")}</p>
-              <p className="showgenre">Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}</p>
+              <p className="showgenre">
+                Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}
+              </p>
             </div>
           ))}
         </div>

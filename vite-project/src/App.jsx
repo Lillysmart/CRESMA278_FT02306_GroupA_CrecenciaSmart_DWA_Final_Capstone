@@ -7,7 +7,7 @@ import Favourites from './Components/Favourites'; // Import Favourites without c
 import { useFavorites } from './Components/useFavourite';
 import { FavoritesProvider } from './Components/FavoritesContext';
 
-const App = () => {;
+const App = () => {
 
   return (
     
