@@ -28,14 +28,27 @@ export const ShowPreview = () => {
     navigate(`/id/${showId}`);
   };
 
-  return (
+  return (<>
+ 
     <div className="show-preview-container">
+    <div className="top-buttons">
+      <label>Sort By:</label>
+        <input className="Search-button" type="search" placeholder=""></input>
+        <label>Title:</label>
+        <input className="title-button" type="search" placeholder="search..."/>
+        <label>Genre:</label>
+        <input className="title-button" type="search" placeholder="search..."/>
+        <button className="favourite-button">
+          Favourite
+        </button>
+        </div>
+   
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
 
       {showData.length > 0 && (
         <div>
-          <h1>The Inclusive Prodcast</h1>
+        
 
           {showData.map((show, showIndex) => (
             <div
@@ -60,5 +73,6 @@ export const ShowPreview = () => {
         </div>
       )}
     </div>
+    </>
   );
 };
