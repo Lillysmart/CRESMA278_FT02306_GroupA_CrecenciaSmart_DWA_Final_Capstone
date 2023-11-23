@@ -96,15 +96,19 @@ export const ShowDetail = () => {
                   </option>
                 ))}
               </select>
+            
             </div>
             {selectedSeason && (
               <div className="selected-season-info">
-                <h2>{`Season ${selectedSeason}`}</h2>
+        
                 {showDetails.seasons.map((season) => {
                   if (season.season.toString() === selectedSeason) {
                     return (
                       <div key={season.season} className="season-container">
+                        <p>{`Number of Episodes: ${season.episodes.length}`}</p>
+                      
                         {season.episodes && season.episodes.length > 0 ? (
+
                           season.episodes.map((episode) => (
                             <div key={episode.episode} className="episode-card">
                               <h4>{`Episode ${episode.episode} : ${episode.title}`}</h4>

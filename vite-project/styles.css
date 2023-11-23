@@ -213,3 +213,6 @@ align-self: center;
   background-color: #f1f0f0;
   margin-bottom: 10px;
 }
+.favourite-list{
+  list-style: none;
+}
