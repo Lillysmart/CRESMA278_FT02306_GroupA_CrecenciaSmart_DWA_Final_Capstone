@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useFavoritesContext } from './FavoritesContext'; // Assuming you have a context for favorites
+import { useFavoritesContext } from "./FavoritesContext";
+
+
 
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [titleSearchTerm, setTitleSearchTerm] = useState('');
-  const [genreSearchTerm, setGenreSearchTerm] = useState('');
+  const [titleSearchTerm, setTitleSearchTerm] = useState("");
+  const [genreSearchTerm, setGenreSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState("all"); // Default to "all"
   const { favorites } = useFavoritesContext();
-  const [selectedGenre, setSelectedGenre] = useState(); // Assuming you have a context for favorites
-  const navigate = useNavigate(); // Hook to navigate between pages
+  const [selectedGenre, setSelectedGenre] = useState();
+  const navigate = useNavigate();
 
   // Genre mapping
   const genreMap = {
-    1: 'Personal Growth',
-    2: 'True Crime and Investigative Journalism',
-    3: 'History',
-    4: 'Comedy',
-    5: 'Entertainment',
-    6: 'Business',
-    7: 'Fiction',
-    8: 'News',
-    9: 'Kids and Family',
+    1: "Personal Growth",
+    2: "True Crime and Investigative Journalism",
+    3: "History",
+    4: "Comedy",
+    5: "Entertainment",
+    6: "Business",
+    7: "Fiction",
+    8: "News",
+    9: "Kids and Family",
   };
- 
 
   useEffect(() => {
     fetch("https://podcast-api.netlify.app/shows")
@@ -42,33 +44,30 @@ export const ShowPreview = () => {
   }, []);
 
   const handleGenreChange = (e) => {
-    // Set the selected genre and automatically trigger the filter
     setGenreSearchTerm(e.target.value);
     setSelectedGenre(e.target.value);
   };
-
 
   const showData = data || [];
 
   const handleTitleSearch = () => {
     const titleSearchTermLower = titleSearchTerm.toLowerCase();
-
     const filteredResults = showData.filter((show) => {
       const titleLower = show.title.toLowerCase();
       return titleLower.includes(titleSearchTermLower);
     });
-
     return filteredResults;
   };
 
   const handleGenreSearch = () => {
     const genreSearchTermLower = genreSearchTerm.toLowerCase();
-
     const filteredResults = showData.filter((show) => {
-      const genreLower = (show.genres || []).map(id => genreMap[id]).join(", ").toLowerCase();
+      const genreLower = (show.genres || [])
+        .map((id) => genreMap[id])
+        .join(", ")
+        .toLowerCase();
       return genreLower.includes(genreSearchTermLower);
     });
-
     return filteredResults;
   };
 
@@ -77,17 +76,41 @@ export const ShowPreview = () => {
   };
 
   const handleFavoriteClick = () => {
-    // Navigate to the favorites page
     navigate("/favourites");
   };
 
+  const sortFunctions = {
+    titleAsc: (a, b) => a.title.localeCompare(b.title),
+    titleDesc: (a, b) => b.title.localeCompare(a.title),
+    dateAsc: (a, b) => new Date(a.updated) - new Date(b.updated),
+    dateDesc: (a, b) => new Date(b.updated) - new Date(a.updated),
+  };
+
+  let sortedData;
+  if (sortOption === "all") {
+    // Use unsorted data
+    sortedData = showData;
+  } else {
+    // Use sorted data based on the selected option
+    sortedData = [...showData].sort(sortFunctions[sortOption]);
+  }
 
   return (
     <>
       <div className="show-preview-container">
         <div className="top-buttons">
           <label>Sort By:</label>
-          <input className="Search-button" type="search" placeholder=""></input>
+          <select
+            className="sort-dropdown"
+            value={sortOption}
+            onChange={(event) => setSortOption(event.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="titleAsc">Title A-Z</option>
+            <option value="titleDesc">Title Z-A</option>
+            <option value="dateAsc">Oldest</option>
+            <option value="dateDesc">Latest</option>
+          </select>
           <label>Title:</label>
           <input
             className="title-button"
@@ -118,11 +141,16 @@ export const ShowPreview = () => {
         {error && <p>{error}</p>}
 
         <div>
-          {showData
-            .filter((show) => (
-              (!selectedGenre || (show.genres && show.genres.map(id => genreMap[id]).includes(selectedGenre)))
-              && show.title.toLowerCase().includes(titleSearchTerm.toLowerCase())
-            ))
+          {sortedData
+            .filter(
+              (show) =>
+                (!selectedGenre ||
+                  (show.genres &&
+                    show.genres
+                      .map((id) => genreMap[id])
+                      .includes(selectedGenre))) &&
+                show.title.toLowerCase().includes(titleSearchTerm.toLowerCase())
+            )
             .map((show, showIndex) => (
               <div
                 key={showIndex}
@@ -133,9 +161,14 @@ export const ShowPreview = () => {
                 <img src={show.image} alt={`Show ${showIndex + 1}`} />
                 <p>{show.description}</p>
                 <h3>Seasons: {show.seasons} </h3>
-                <p>Updated: {new Date(show.updated).toLocaleDateString("en-UK")}</p>
+                <p>
+                  Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
+                </p>
                 <p className="showgenre">
-                  Genre: {show.genres ? show.genres.map(id => genreMap[id]).join(", ") : 'N/A'}
+                  Genre:{" "}
+                  {show.genres
+                    ? show.genres.map((id) => genreMap[id]).join(", ")
+                    : "N/A"}
                 </p>
               </div>
             ))}
