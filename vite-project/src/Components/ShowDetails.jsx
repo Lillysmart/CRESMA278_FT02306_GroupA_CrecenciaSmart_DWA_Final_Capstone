@@ -1,6 +1,6 @@
-// ShowDetail.js
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+// ShowDetail.jsx
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useFavoritesContext } from './FavoritesContext';
 
 export const ShowDetail = () => {
@@ -21,11 +21,11 @@ export const ShowDetail = () => {
         }
         const responseData = await response.json();
         setShowDetails(responseData);
-        setLoading(false); // Set loading to false when data is fetched
+        setLoading(false);
       } catch (fetchError) {
         console.error('Fetch error:', fetchError);
         setError('Error fetching show details. Please try again later.');
-        setLoading(false); // Set loading to false in case of an error
+        setLoading(false);
       }
     };
 
@@ -48,8 +48,8 @@ export const ShowDetail = () => {
     addToFavorites(episode, showDetails.title, selectedSeason);
   };
 
-  const handleRemoveFromFavorites = (episodeId) => {
-    removeFromFavorites(episodeId);
+  const handleRemoveFromFavorites = (episodeNumber) => {
+    removeFromFavorites(episodeNumber);
   };
 
   const handleFavouriteClick = () => {

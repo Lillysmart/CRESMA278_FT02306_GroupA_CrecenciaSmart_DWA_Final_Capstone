@@ -1,10 +1,9 @@
-// Favourites.js
+// Favourites.jsx
 import React from 'react';
 import { useFavoritesContext } from './FavoritesContext';
 
-export const Favourites = () => {
+const Favourites = () => {
   const { favorites, removeFromFavorites } = useFavoritesContext();
-  console.log('Rendering Favourites component. Current favorites:', favorites);
 
   const handleRemoveFromFavorites = (episodeId) => {
     removeFromFavorites(episodeId);
@@ -12,19 +11,26 @@ export const Favourites = () => {
 
   return (
     <div>
-      <h1>Your Favorites:</h1>
+      <h1>Your Favorites :</h1>
       {favorites.length > 0 ? (
-        <ul>
-          {favorites.map(({ episode, show }) => (
-            <li key={episode.episode} className="favorite-item">
-              <div>
-                <strong>{`Show: ${show}, Episode ${episode.episode}: ${episode.title}`}</strong>
-                <p>{episode.description}</p>
-              </div>
-              <div>
-                <button onClick={() => handleRemoveFromFavorites(episode.episode)}>
+        <ul className='favourite-list'>
+          {favorites.map(({ episode, show, season }) => (
+            <li key={episode.episode}>
+              <div className='favourite-shows'>
+                <h3>{`${show}`}</h3>
+                <h4>{`Season: ${season} `}</h4>
+                <p>{`Episode ${episode.episode}: ${episode.title}`}</p>
+                <audio controls>
+                                <source src={episode.file} type="audio/mp3" />
+                                Your browser does not support the audio element.
+                              </audio>
+                              <br />
+                              <button onClick={() => handleRemoveFromFavorites(episode.episode)}>
                   Remove from Favorites
                 </button>
+              </div>
+              <div>
+              
               </div>
             </li>
           ))}

@@ -1,6 +1,6 @@
 import {useState} from "react"
 
-
+// useFavorites.js
 export const useFavorites = () => {
     const [favorites, setFavorites] = useState([]);
   
@@ -8,15 +8,12 @@ export const useFavorites = () => {
       setFavorites([...favorites, { episode, show }]);
     };
   
-    const removeFromFavorites = (episodeToRemove) => {
-      const updatedFavorites = favorites.filter((fav) => !isSameEpisode(fav.episode, episodeToRemove));
-      setFavorites(updatedFavorites);
-    };
-  
-    const isSameEpisode = (episode1, episode2) => {
-      return episode1.title === episode2.title && episode1.episode === episode2.episode;
-    };
-  
+    const removeFromFavorites = (episodeNumber) => {
+        setFavorites((prevFavorites) =>
+          prevFavorites.filter((fav) => fav.episode.episode !== episodeNumber)
+        );
+      };
+      
     return { favorites, addToFavorites, removeFromFavorites };
   };
   

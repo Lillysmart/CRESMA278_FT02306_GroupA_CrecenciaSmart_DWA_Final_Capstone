@@ -18,10 +18,11 @@ export const FavoritesProvider = ({ children }) => {
     setFavorites([...favorites, { episode, show, season }]);
   };
 
-  const removeFromFavorites = (episodeId) => {
-    const updatedFavorites = favorites.filter((fav) => fav.episode.id !== episodeId);
-    setFavorites(updatedFavorites);
-  };
+  const removeFromFavorites = (episodeNumber) => {
+    setFavorites((prevFavorites) =>
+      prevFavorites.filter((fav) => fav.episode.episode !== episodeNumber)
+    );
+  }
 
   return (
     <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites }}>
