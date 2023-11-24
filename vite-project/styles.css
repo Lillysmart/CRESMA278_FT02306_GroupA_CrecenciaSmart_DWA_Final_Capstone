@@ -18,6 +18,11 @@
   margin: 0 auto;
   display: block;
 }
+.show-preview-card:hover img {
+  transform: scale(1.05); 
+  transition: transform 0.3s ease; 
+}
+
 
 /* styles.css */
 .show-preview-details {
@@ -203,6 +208,10 @@ align-self: center;
 .add-favourite-button:hover{
   background-color: #f5f5f5
 }
+
+.favourite-heading{
+text-align: center;
+}
 .favourite-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -226,3 +235,4 @@ align-self: center;
     grid-template-columns: repeat(4, 1fr); /* 3 shows horizontally on larger screens */
   }
 }
+

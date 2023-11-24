@@ -1,6 +1,8 @@
 // Favourites.jsx
 import React from "react";
 import { useFavoritesContext } from "./FavoritesContext";
+import { useNavigate } from "react-router-dom";
+import {ShowDetail} from "./ShowDetails";
 
 const Favourites = () => {
   const { favorites, removeFromFavorites } = useFavoritesContext();
@@ -8,14 +10,25 @@ const Favourites = () => {
   const handleRemoveFromFavorites = (episodeId) => {
     removeFromFavorites(episodeId);
   };
+
+
   const date = new Date();
   const todayDate = `${date.getDate()}/${
     date.getMonth() + 1
+
   }/ ${date.getFullYear()}`;
+  const navigate = useNavigate();
+
+  const backbuttonHandler=()=>{
+    navigate("/")
+  }
 
   return (
     <div>
-      <h1>Your Favorites :</h1>
+      <div>
+      <button className="back-button" onClick={backbuttonHandler}>Home</button>
+   </div> 
+      <h1 className="favourite-heading">Your Favorites :</h1>
       {favorites.length > 0 ? (
         <ul className="favourite-list">
           {favorites.map(({ episode, show, season }) => (
