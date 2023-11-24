@@ -80,11 +80,20 @@ export const ShowPreview = () => {
   };
 
   const sortFunctions = {
-    titleAsc: (a, b) => a.title.localeCompare(b.title),
-    titleDesc: (a, b) => b.title.localeCompare(a.title),
+    titleAsc: (a, b) => {
+      const titleA = (a.title || "").toLowerCase();
+      const titleB = (b.title || "").toLowerCase();
+      return titleA.localeCompare(titleB);
+    },
+    titleDesc: (a, b) => {
+      const titleA = (a.title || "").toLowerCase();
+      const titleB = (b.title || "").toLowerCase();
+      return titleB.localeCompare(titleA);
+    },
     dateAsc: (a, b) => new Date(a.updated) - new Date(b.updated),
     dateDesc: (a, b) => new Date(b.updated) - new Date(a.updated),
   };
+  
 
   let sortedData;
   if (sortOption === "all") {
