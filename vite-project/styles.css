@@ -5,14 +5,15 @@ body {
   color:#fff;
 }
 .navbar {
+  margin-top: 0;
   position: sticky;
   top:0px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px;
-  background-color: #ff6b81;
-  z-index:100 ; /* Girly pink color, adjust as needed */
+  background-color:#343A40;
+  z-index:100 ;
 }
 
 .logo img {
@@ -31,14 +32,14 @@ body {
 .menu-item select,
 .menu-item input {
   padding: 10px;
-  border: 2px solid #ff6b81; /* Girly pink color, adjust as needed */
+  border: 2px solid white; 
   border-radius: 5px;
   font-size: 14px;
 }
 
 .menu-item button {
   padding: 10px 15px;
-  background-color: #ff6b81; /* Girly pink color, adjust as needed */
+  background-color:#343A40; /* Girly pink color, adjust as needed */
   color: white;
   border: none;
   border-radius: 5px;
