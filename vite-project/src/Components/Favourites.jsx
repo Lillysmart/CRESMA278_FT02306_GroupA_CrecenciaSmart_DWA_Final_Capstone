@@ -26,13 +26,14 @@ const Favourites = () => {
       case "titleDesc":
         return b.show.localeCompare(a.show) || b.episode.title.localeCompare(a.episode.title);
       case "dateAsc":
-        return a.todayDate.localeCompare(b.todayDate);
+        return new Date(a.todayDate) - new Date(b.todayDate);
       case "dateDesc":
-        return b.todayDate.localeCompare(a.todayDate);
+        return new Date(b.todayDate) - new Date(a.todayDate);
       default:
         return 0;
     }
   });
+  
   
   const handleFavouriteSelect = (event) => {
     setSortOption(event.target.value);

@@ -1,5 +1,13 @@
 /* styles.css */
-
+body {
+  margin: 0;
+}
+.top-buttons {
+  position: sticky;
+  top: 0;
+  background-color: #000000; /* Change the background color to your preference */
+  z-index: 100; /* Set the z-index to ensure it stays above other elements */
+}
 .show-preview-card {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
@@ -90,6 +98,7 @@
 .fixed-buttons {
   position:sticky;
   top:0px;
+  z-index: 100;
   display: flex;
   justify-content: space-around;
   background-color: #f1f0f0;
