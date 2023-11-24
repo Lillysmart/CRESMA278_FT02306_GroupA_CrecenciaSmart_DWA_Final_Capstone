@@ -41,12 +41,12 @@ const Favourites = () => {
 
   return (
     <div>
-      <div>
+      <nav className="navbar">
         <button className="back-button" onClick={backbuttonHandler}>
           Home
         </button>
         <label htmlFor="favouriteSelect" className="favourite-label">
-          Sort By:{" "}
+    
         </label>
 
         <select
@@ -61,7 +61,7 @@ const Favourites = () => {
           <option value="dateAsc">Oldest</option>
           <option value="dateDesc">Latest</option>
         </select>
-      </div>
+      </nav>
       <h1 className="favourite-heading">Your Favorites :</h1>
       {sortedData.length > 0 ? (
         <ul className="favourite-list">

@@ -158,7 +158,7 @@ export const ShowPreview = () => {
           </div>
 
           <div className="menu-item">
-            <button className="favourite-button" onClick={handleFavoriteClick}>
+            <button className="view-favourite-button" onClick={handleFavoriteClick}>
               View Favorites
             </button>
           </div>
