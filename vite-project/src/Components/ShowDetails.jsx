@@ -56,6 +56,11 @@ export const ShowDetail = () => {
     navigate('/favourites');
   };
 
+  const shorterDescription = (description, maxSentences) => {
+    const sentences = description.split('.').slice(0, maxSentences);
+    const truncatedDescription = sentences.join('.') + (sentences.length < maxSentences ? '' : '...');
+    return truncatedDescription;
+  };
   return (
     <>
       <div className="fixed-buttons">
@@ -75,7 +80,7 @@ export const ShowDetail = () => {
             <div className="show-top-info">
               <h1 className="show-title">{showDetails.title}</h1>
               <img className="show-image" src={showDetails.image} alt={showDetails.title} />
-              <p className="show-description">{showDetails.description}</p>
+              <p className="show-description">{shorterDescription(showDetails.description, 2)}</p>
             </div>
             <div className="season-selection">
               <label htmlFor="seasonSelect" className="season-label">

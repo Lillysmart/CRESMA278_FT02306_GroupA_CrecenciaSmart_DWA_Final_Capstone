@@ -106,82 +106,102 @@ export const ShowPreview = () => {
 
   return (
     <>
-      <div className="show-preview-container">
-        <div className="top-buttons">
-          <label>Sort By:</label>
-          <select
-            className="sort-dropdown"
-            value={sortOption}
-            onChange={(event) => setSortOption(event.target.value)}
-          >
-            <option value="all">All</option>
-            <option value="titleAsc">Title A-Z</option>
-            <option value="titleDesc">Title Z-A</option>
-            <option value="dateAsc">Oldest</option>
-            <option value="dateDesc">Latest</option>
-          </select>
-          <label>Title:</label>
-          <input
-            className="title-button"
-            type="search"
-            placeholder="Search by title..."
-            value={titleSearchTerm}
-            onChange={(e) => setTitleSearchTerm(e.target.value)}
-          />
-          <label>Genre:</label>
-          <select
-            className="title-button"
-            value={selectedGenre}
-            onChange={handleGenreChange}
-          >
-            <option value="">All Genres</option>
-            {Object.values(genreMap).map((genre, index) => (
-              <option key={index} value={genre}>
-                {genre}
-              </option>
-            ))}
-          </select>
-          <button className="favourite-button" onClick={handleFavoriteClick}>
-            View Favorites
-          </button>
+      <nav className="navbar">
+        <div className="logo">
+          <img src="broadcast-logo.png" alt="Broadcast Logo" />
         </div>
 
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
+        <div className="menu">
+          <div className="menu-item">
+            <label htmlFor="sort">Sort By:</label>
+            <select
+              id="sort"
+              className="sort-dropdown"
+              value={sortOption}
+              onChange={(event) => setSortOption(event.target.value)}
+            >
+              <option value="all">All</option>
+              <option value="titleAsc">Title A-Z</option>
+              <option value="titleDesc">Title Z-A</option>
+              <option value="dateAsc">Oldest</option>
+              <option value="dateDesc">Latest</option>
+            </select>
+          </div>
 
-        <div className="show-grid">
-          {sortedData
-            .filter(
-              (show) =>
-                (!selectedGenre ||
-                  (show.genres &&
-                    show.genres
-                      .map((id) => genreMap[id])
-                      .includes(selectedGenre))) &&
-                show.title.toLowerCase().includes(titleSearchTerm.toLowerCase())
-            )
-            .map((show, showIndex) => (
-              <div
-                key={showIndex}
-                className="show-preview-card"
-                onClick={() => handleShowClick(show.id)}
-              >
-                <h2>{show.title}</h2>
-                <img src={show.image} alt={`Show ${showIndex + 1}`} />
-                <p>{show.description}</p>
-                <h3>Seasons: {show.seasons} </h3>
-                <p>
-                  Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
-                </p>
-                <p className="showgenre">
-                  Genre:{" "}
-                  {show.genres
-                    ? show.genres.map((id) => genreMap[id]).join(", ")
-                    : "N/A"}
-                </p>
+          <div className="menu-item">
+            <label htmlFor="title">Title:</label>
+            <input
+              id="title"
+              className="title-button"
+              type="search"
+              placeholder="Search by title..."
+              value={titleSearchTerm}
+              onChange={(e) => setTitleSearchTerm(e.target.value)}
+            />
+          </div>
+
+          <div className="menu-item">
+            <label htmlFor="genre">Genre:</label>
+            <select
+              id="genre"
+              className="title-button"
+              value={selectedGenre}
+              onChange={handleGenreChange}
+            >
+              <option value="">All Genres</option>
+              {Object.values(genreMap).map((genre, index) => (
+                <option key={index} value={genre}>
+                  {genre}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="menu-item">
+            <button className="favourite-button" onClick={handleFavoriteClick}>
+              View Favorites
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+
+      <div className="show-grid">
+        {sortedData
+          .filter(
+            (show) =>
+              (!selectedGenre ||
+                (show.genres &&
+                  show.genres
+                    .map((id) => genreMap[id])
+                    .includes(selectedGenre))) &&
+              show.title.toLowerCase().includes(titleSearchTerm.toLowerCase())
+          )
+          .map((show, showIndex) => (
+            <div
+              key={showIndex}
+              className="show-preview-card"
+              onClick={() => handleShowClick(show.id)}
+            >
+              <div className="show-preview-details">
+              <h2>{show.title}</h2>
+              <img src={show.image} alt={`Show ${showIndex + 1}`} />
+              <p className="show-preview-description">{show.description}</p>
+              <h3>Seasons: {show.seasons} </h3>
+              <p > 
+                Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
+              </p>
+              <p className="showgenre">
+                Genre:{" "}
+                {show.genres
+                  ? show.genres.map((id) => genreMap[id]).join(", ")
+                  : "N/A"}
+              </p>
               </div>
-            ))}
-        </div>
+            </div>
+          ))}
       </div>
     </>
   );

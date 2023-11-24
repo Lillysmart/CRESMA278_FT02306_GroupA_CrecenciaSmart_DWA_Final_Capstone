@@ -1,21 +1,78 @@
 /* styles.css */
 body {
   margin: 0;
+  background-color: #212529;
+  color:#fff;
 }
-.top-buttons {
+.navbar {
   position: sticky;
-  top: 0;
-  background-color: #000000; /* Change the background color to your preference */
-  z-index: 100; /* Set the z-index to ensure it stays above other elements */
+  top:0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background-color: #ff6b81;
+  z-index:100 ; /* Girly pink color, adjust as needed */
 }
+
+.logo img {
+  max-height: 50px;
+}
+
+.menu {
+  display: flex;
+  gap: 20px;
+}
+
+.menu-item label {
+  display: none;
+}
+
+.menu-item select,
+.menu-item input {
+  padding: 10px;
+  border: 2px solid #ff6b81; /* Girly pink color, adjust as needed */
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.menu-item button {
+  padding: 10px 15px;
+  background-color: #ff6b81; /* Girly pink color, adjust as needed */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Media query for responsiveness */
+@media (max-width: 768px) {
+  .menu {
+    flex-direction: column;
+  }
+
+  .menu-item label {
+    display: block;
+  }
+
+  .menu-item select,
+  .menu-item input,
+  .menu-item button {
+    width: 100%;
+  }
+}
+
 .show-preview-card {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(255, 241, 241, 0.1);
   border-radius: 8px;
   width: 100%; /* Set the width to 100% */
   max-width: 900px;
   overflow: hidden;
   text-align: center;
-  margin: 0 auto; /* Center the card horizontally */
+  margin: 0 auto;
+  color:white;
+
 }
 
 
@@ -31,14 +88,11 @@ body {
   transition: transform 0.3s ease; 
 }
 
-
-/* styles.css */
 .show-preview-details {
   padding: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center the content horizontally */
-}
+  align-items: center;}
 
 .show-preview-details h3 {
   color: white;
@@ -49,8 +103,6 @@ body {
   border-radius: 10px;; /* Remove default margin to ensure it's centered */
 }
 
-
-
 .show-preview-details h2 {
   margin-bottom: 10px;
   font-size: 1.5rem;
@@ -58,7 +110,7 @@ body {
 
 
 .show-preview-details p {
-  color: #555;
+  
 }
 
 
@@ -74,7 +126,7 @@ body {
 .showgenre {
   margin-top: 0px;
   font-size: 1rem;
-  color: #555;
+ 
  font-family: Arial, Helvetica, sans-serif;
  font-weight: bold;
 }
@@ -166,7 +218,7 @@ body {
   border-radius: 8px;
   width: 100%; /* Set the width to 100% */
   max-width: 900px;
- 
+ color: black;
   text-align: center;
   margin: 0 auto;
   background-color: #f1f0f0;
