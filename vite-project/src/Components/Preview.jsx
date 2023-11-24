@@ -108,7 +108,7 @@ export const ShowPreview = () => {
     <>
       <nav className="navbar">
         <div className="logo">
-          <img src="broadcast-logo.png" alt="Broadcast Logo" />
+          <img src="../Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
         </div>
 
         <div className="menu">

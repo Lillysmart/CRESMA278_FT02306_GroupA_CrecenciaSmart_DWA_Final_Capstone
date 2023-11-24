@@ -106,11 +106,12 @@ body {
 .show-preview-details h2 {
   margin-bottom: 10px;
   font-size: 1.5rem;
+  color:#E9ECEF;
 }
 
 
-.show-preview-details p {
-  
+.show-preview-description {
+  opacity: 60%;
 }
 
 
@@ -211,6 +212,8 @@ body {
   border-radius: 8px 8px 0 0;
   margin: 0 auto;
   display: block;
+}
+.show-description{opacity: 60%;
 }
 
 .episode-card{
