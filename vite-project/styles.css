@@ -228,7 +228,7 @@ body {
  color: black;
   text-align: center;
   margin: 0 auto;
-  background-color:#CED4DA;
+  background-color: #f1f0f0;
   margin-bottom: 10px;
  
 }
@@ -304,4 +304,6 @@ text-align: center;
     grid-template-columns: repeat(4, 1fr); /* 3 shows horizontally on larger screens */
   }
 }
+
+
 
