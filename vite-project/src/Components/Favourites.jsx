@@ -8,6 +8,8 @@ const Favourites = () => {
   const handleRemoveFromFavorites = (episodeId) => {
     removeFromFavorites(episodeId);
   };
+  const date = new Date()
+  const todayDate= `${date.getDate()}/${date.getMonth()+1}/ ${date.getFullYear()}`
 
   return (
     <div>
@@ -25,6 +27,7 @@ const Favourites = () => {
                                 Your browser does not support the audio element.
                               </audio>
                               <br />
+                              <p>Date Added:{todayDate}</p>
                               <button onClick={() => handleRemoveFromFavorites(episode.episode)}>
                   Remove from Favorites
                 </button>

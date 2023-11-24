@@ -206,8 +206,7 @@ align-self: center;
 .favourite-shows{
   border-radius: 8px;
   width: 100%; /* Set the width to 100% */
-  max-width: 900px;
- 
+  max-width: 400px;
   text-align: center;
   margin: 0 auto;
   background-color: #f1f0f0;
