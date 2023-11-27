@@ -50,17 +50,19 @@ body {
 /* Media query for responsiveness */
 @media (max-width: 768px) {
   .menu {
-    flex-direction: column;
+    flex-direction:column;
+    height: 100px;
   }
 
   .menu-item label {
-    display: block;
+    display:none;
   }
 
   .menu-item select,
   .menu-item input,
   .menu-item button {
-    width: 100%;
+    width: 80px;
+    height: 10px;
   }
 }
 .view-favourite-button {
