@@ -113,11 +113,12 @@ body {
 
 .show-preview-details h3 {
   color: white;
-  background-color: rgb(181, 149, 149);
+
   width: 200px;
   text-align: center; /* Center the text within the h3 element */
   margin: 0;
-  border-radius: 10px;; /* Remove default margin to ensure it's centered */
+  border-radius: 10px;
+   opacity: 70%;
 }
 
 .show-preview-details h2 {
@@ -144,7 +145,7 @@ body {
 .showgenre {
   margin-top: 0px;
   font-size: 1rem;
- 
+ opacity: 80%;
  font-family: Arial, Helvetica, sans-serif;
  font-weight: bold;
 }
