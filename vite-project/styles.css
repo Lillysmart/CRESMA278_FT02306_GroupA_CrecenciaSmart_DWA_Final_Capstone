@@ -308,5 +308,46 @@ text-align: center;
   }
 }
 
+/* SlidingCarousel.css */
+
+.sliding-carousel-container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+.sliding-carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.sliding-carousel-item {
+  min-width: 100%;
+  box-sizing: border-box;
+}
+
+.sliding-carousel-button {
+  position: absolute;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transform: translateY(-50%);
+}
+
+.prev {
+  left: 0;
+}
+
+.next {
+  right: 0;
+}
+
+
 
 
