@@ -50,7 +50,7 @@ export const ShowPreview = () => {
 
   const showData = data || [];
 
-  const handleTitleSearch = () => {
+ const handleTitleSearch = () => {
     const titleSearchTermLower = titleSearchTerm.toLowerCase();
     const filteredResults = showData.filter((show) => {
       const titleLower = show.title.toLowerCase();
@@ -58,7 +58,7 @@ export const ShowPreview = () => {
     });
     return filteredResults;
   };
-
+  
   const handleGenreSearch = () => {
     const genreSearchTermLower = genreSearchTerm.toLowerCase();
     const filteredResults = showData.filter((show) => {

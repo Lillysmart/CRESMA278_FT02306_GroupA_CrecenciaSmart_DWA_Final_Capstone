@@ -5,9 +5,8 @@ import { ShowDetail } from "./ShowDetails";
 
 const Favourites = () => {
   const { favorites, removeFromFavorites } = useFavoritesContext();
-  const [sortOption, setSortOption] = useState("all");
-
-  const handleRemoveFromFavorites = (episodeId) => {
+  const [filterOption, setfilterOption] = useState("all");
+  const handleRemoveFavourite = (episodeId) => {
     removeFromFavorites(episodeId);
   };
 
@@ -19,16 +18,18 @@ const Favourites = () => {
     navigate("/");
   };
 
-  const sortedData = [...favorites].sort((a, b) => {
-    switch (sortOption) {
-      case "titleAsc":
-        return a.show.localeCompare(b.show) || a.episode.title.localeCompare(b.episode.title);
-      case "titleDesc":
-        return b.show.localeCompare(a.show) || b.episode.title.localeCompare(a.episode.title);
-      case "dateAsc":
-        return new Date(a.todayDate) - new Date(b.todayDate);
-      case "dateDesc":
-        return new Date(b.todayDate) - new Date(a.todayDate);
+  const sortedFavourites = [...favorites].sort((itemA, itemB) => {
+    switch (filterOption) {
+     
+      case "titleAscending":
+        return itemA.show.localeCompare(itemB.show) || itemA.episode.title.localeCompare(itemB.episode.title);
+      case "titleDescending":
+        return itemA.show.localeCompare(itemA.show) || itemB.episode.title.localeCompare(itemA.episode.title);
+      case "dateAscending":
+        return new Date(itemA.todayDate) - new Date(itemB.todayDate);
+      case "dateDescending":
+        return new Date(itemB.todayDate) - new Date(itemA.todayDate);
+        
       default:
         return 0;
     }
@@ -36,7 +37,7 @@ const Favourites = () => {
   
   
   const handleFavouriteSelect = (event) => {
-    setSortOption(event.target.value);
+    setfilterOption(event.target.value);
   };
 
   return (
@@ -52,20 +53,20 @@ const Favourites = () => {
         <select
           id="favouriteSelect"
           onChange={handleFavouriteSelect}
-          value={sortOption}
+          value={filterOption}
           className="season-select"
         >
           <option value="all">All</option>
-          <option value="titleAsc">Title A-Z</option>
-          <option value="titleDesc">Title Z-A</option>
-          <option value="dateAsc">Oldest</option>
-          <option value="dateDesc">Latest</option>
+          <option value="titleAscending">Title A-Z</option>
+          <option value="titleDescending">Title Z-A</option>
+          <option value="dateAscending">Oldest</option>
+          <option value="dateDescending">Latest</option>
         </select>
       </nav>
-      <h1 className="favourite-heading">Your Favorites :</h1>
-      {sortedData.length > 0 ? (
+      <h1 className="favourite-heading">Your Favorites Episodes:</h1>
+      {sortedFavourites.length > 0 ? (
         <ul className="favourite-list">
-          {sortedData.map(({ episode, show, season }) => (
+          {sortedFavourites.map(({ episode, show, season }) => (
             <li key={episode.episode}>
               <div className="favourite-shows">
                 <h3>{`${show}`}</h3>
@@ -76,13 +77,13 @@ const Favourites = () => {
                 <div className="audio-container">
                   <audio controls style={{ maxWidth: "100%" }}>
                     <source src={episode.file} type="audio/mp3" />
-                    Your browser does not support the audio element.
+                    Audio not supported by your browser.
                   </audio>
                 </div>
                 <br />
                 <p>Date Added: {todayDate}</p>
                 <button
-                  onClick={() => handleRemoveFromFavorites(episode.episode)}
+                  onClick={() => handleRemoveFavourite(episode.episode)}
                 >
                   Remove from Favorites
                 </button>
@@ -92,7 +93,7 @@ const Favourites = () => {
           ))}
         </ul>
       ) : (
-        <p>No favorites yet. Add some from the episodes!</p>
+        <p>No favorites added yet. Add some from the episodes!</p>
       )}
     </div>
   );

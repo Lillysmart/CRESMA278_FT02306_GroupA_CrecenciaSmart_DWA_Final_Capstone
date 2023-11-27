@@ -1,12 +1,14 @@
-// FavoritesContext.jsx
-import React, { createContext, useContext, useState } from 'react';
 
+import React, {useContext, createContext,  useState } from "react";
+
+
+// Create a context for managing favorites
 const FavoritesContext = createContext();
 
 export const useFavoritesContext = () => {
-  const context = useContext(FavoritesContext);
+ const context = useContext(FavoritesContext);
   if (!context) {
-    throw new Error('useFavoritesContext must be used within a FavoritesProvider');
+   throw Error('Please make sure to use the useFavoritesContext function within a FavoritesProvider');
   }
   return context;
 };
@@ -19,11 +21,10 @@ export const FavoritesProvider = ({ children }) => {
   };
 
   const removeFromFavorites = (episodeNumber) => {
-    setFavorites((prevFavorites) =>
-      prevFavorites.filter((fav) => fav.episode.episode !== episodeNumber)
+    setFavorites((previousFavorites) =>
+     previousFavorites.filter((favorite) => favorite.episode.episode !== episodeNumber)
     );
-  }
-
+   }
   return (
     <FavoritesContext.Provider value={{ favorites, addToFavorites, removeFromFavorites }}>
       {children}
