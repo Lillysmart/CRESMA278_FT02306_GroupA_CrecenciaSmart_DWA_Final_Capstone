@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, json } from "react-router-dom";
 import { useContext } from "react";
 import { useFavoritesContext } from "./FavoritesContext";
 
@@ -15,7 +15,10 @@ export const ShowDetail = () => {
   const [audioPlaying, setAudioPlaying] = useState(false);
   const navigate = useNavigate();
 
+ 
+
   useEffect(() => {
+   
     const fetchShowDetails = async () => {
       try {
         const response = await fetch(
@@ -69,10 +72,10 @@ export const ShowDetail = () => {
   };
 
   useEffect(() => {
-    const handleBeforeUnload = (e) => {
+    const handleBeforeUnload = (event) => {
       if (audioPlaying) {
-        const confirmationMessage = 'You have audio playing. Are you sure you want to leave?';
-        e.returnValue = confirmationMessage;
+        const confirmationMessage = 'You have audio playing. Are you sure you want to leave? Your audio may stop.';
+        event.returnValue = confirmationMessage;
       }
     };
 
@@ -189,3 +192,5 @@ export const ShowDetail = () => {
 };
 
 export default ShowDetail;
+
+localStorage.setItem("showDetail" ,JSON.stringify(ShowDetail))
