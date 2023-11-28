@@ -6,9 +6,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-export const CustomSlider = ({ data }) => {
-  // Take the first 10 shows
-  const showsToDisplay = data.slice(0, 10);
+export const CustomSlider = ({ data, showIndices }) => {
+  // Take the shows based on the specified indices
+  const showsToDisplay = showIndices.map((index) => data[index]).filter(Boolean);
 
   const settings = {
     dots: true,
@@ -24,7 +24,7 @@ export const CustomSlider = ({ data }) => {
         {showsToDisplay.map((show) => (
           <div key={show.id}>
             <h3>{show.title}</h3>
-            <img src={show.image} alt={show.title}  />
+            <img src={show.image} alt={show.title} />
           </div>
         ))}
       </Slider>

@@ -342,10 +342,15 @@ body {
     ); /* 3 shows horizontally on larger screens */
   }
 }
+.slider-heading{
+  text-align: center;
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  color: #FEEAFA;
+}
 .slider-grid{
-  height: 200px;
+  height: 180px;
   justify-items: center;
-  border: 1px solid red;
+  border: 1px solid rgb(246, 246, 246);
   margin: 0 auto;
   display:grid;
   text-align: center;
@@ -354,7 +359,34 @@ body {
 
 }
 .slider-grid img {
-  height: 100px;
+  height: 90px;
   margin: 0 auto;
+}
+/* Add this CSS to your styles */
+.slick-dots {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.slick-dots li {
+  margin: 0 5px;
+}
+
+.slick-dots li button {
+  font-size: 12px;
+  cursor: pointer;
+  background-color: #ccc; /* Dot background color */
+  border: none;
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #fcf9f9; /* Active dot background color */
 }
 
