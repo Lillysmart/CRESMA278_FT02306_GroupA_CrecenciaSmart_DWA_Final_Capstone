@@ -177,7 +177,7 @@ export const ShowPreview = () => {
       {error && <p>{error}</p>}
       
       <CustomSlider data={sortedData} showIndices={[38,15,  50, 40, 8, 30]} />
-
+      <h3 className="all-shows-heading">All Availabe Shows :</h3>
       <div className="show-grid">
         {sortedData
           .filter(

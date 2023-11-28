@@ -346,9 +346,10 @@ body {
   text-align: center;
   font-family:Georgia, 'Times New Roman', Times, serif;
   color: #FEEAFA;
+  margin-top: 3px;
 }
 .slider-grid{
-  height: 180px;
+  height: 150px;
   justify-items: center;
   border: 1px solid rgb(246, 246, 246);
   margin: 0 auto;
@@ -359,8 +360,11 @@ body {
 
 }
 .slider-grid img {
-  height: 90px;
+  height: 85px;
   margin: 0 auto;
+}
+.slider-grid h3{
+  font-size: 1rem;
 }
 /* Add this CSS to your styles */
 .slick-dots {

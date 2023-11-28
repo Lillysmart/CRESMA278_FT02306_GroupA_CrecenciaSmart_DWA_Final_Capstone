@@ -20,6 +20,7 @@ export const CustomSlider = ({ data, showIndices }) => {
 
   return (
     <div>
+      <h2 className='slider-heading'>Shows you may be interested in ...</h2>
       <Slider {...settings} className='slider-grid'>
         {showsToDisplay.map((show) => (
           <div key={show.id}>
