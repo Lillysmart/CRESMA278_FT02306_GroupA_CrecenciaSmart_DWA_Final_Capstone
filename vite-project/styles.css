@@ -393,4 +393,14 @@ body {
 .slick-dots li.slick-active button {
   background-color: #fcf9f9; /* Active dot background color */
 }
+.all-shows-heading {
+  text-align: center;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #FEEAFA; /* Your desired text color */
+  background-color: #343a40; /* Your desired background color */
+  padding: 10px; /* Adjust the padding as needed */
+  border-radius: 8px;
+   /* Adjust the border radius for rounded corners */
+  margin-top: 20px; /* Adjust the margin as needed */
+}
 
