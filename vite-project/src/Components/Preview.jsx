@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFavoritesContext } from "./FavoritesContext";
 import sbd from 'sbd';
+import {CustomSlider} from "./Slider"
 
 
 
@@ -175,7 +176,7 @@ export const ShowPreview = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       
-     
+      <CustomSlider data={sortedData} />
       <div className="show-grid">
         {sortedData
           .filter(
