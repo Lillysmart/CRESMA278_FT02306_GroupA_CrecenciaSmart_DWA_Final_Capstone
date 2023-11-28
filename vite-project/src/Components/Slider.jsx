@@ -1,31 +1,34 @@
+import React, { useState, useEffect } from "react";
 
-import React , {useState}from "react"
+export const CustomSlider = ({ data }) => {
+  const [currentSlide, setCurrentSlide] = useState(0);
 
-export const Slider= ({ shows }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-  
-    const nextSlide = () => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % shows.length);
-    };
-  
-    const prevSlide = () => {
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + shows.length) % shows.length);
-    };
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) =>
+        prevSlide === data.length - 1 ? 0 : prevSlide + 1
+      );
+    }, 5000);
 
+    return () => clearInterval(interval);
+  }, [data]);
 
-    return ( <div className="sliding-carousel-container">
-    <div className="sliding-carousel-track" style={{ transform: `translateX(-${currentIndex * 100}%)` }}>
-      {shows.map((show, index) => (
-        <div key={index} className="sliding-carousel-item">
-          {show}
+  return (
+    <div className="custom-slider-container">
+      {data.map((show, index) => (
+        <div
+          key={index}
+          className={`custom-slider-item ${
+            index === currentSlide ? "active" : ""
+          }`}
+        >
+          <h2>{show.title}</h2>
+          <img src={show.image} alt={`Show ${index + 1}`} />
+          {/* Add any additional content or styling as needed */}
         </div>
       ))}
     </div>
-    <button className="sliding-carousel-button prev" onClick={prevSlide}>
-    </button>
-    <button className="sliding-carousel-button next" onClick={nextSlide}>
-      ❯
-    </button>
-  </div>
-)}
- export default Slider
+  );
+};
+
+export default CustomSlider;

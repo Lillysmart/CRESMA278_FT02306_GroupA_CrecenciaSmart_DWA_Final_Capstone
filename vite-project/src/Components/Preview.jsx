@@ -4,6 +4,7 @@ import { useFavoritesContext } from "./FavoritesContext";
 import sbd from 'sbd';
 
 
+
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -173,7 +174,8 @@ export const ShowPreview = () => {
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-
+      
+     
       <div className="show-grid">
         {sortedData
           .filter(
