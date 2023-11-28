@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useFavoritesContext } from "./FavoritesContext";
-
+import sbd from 'sbd';
 
 
 export const ShowPreview = () => {
@@ -103,7 +103,13 @@ export const ShowPreview = () => {
     // Use sorted data based on the selected option
     sortedData = [...showData].sort(sortFunctions[sortOption]);
   }
-
+  const shorterDescription = (description, maxSentences) => {
+    const sentences = sbd.sentences(description);
+    const truncatedDescription =
+      sentences.slice(0, maxSentences).join("") +
+      (sentences.length > maxSentences ? "..." : "");
+    return truncatedDescription;
+  };
   return (
     <>
       <nav className="navbar">
@@ -188,7 +194,7 @@ export const ShowPreview = () => {
               <div className="show-preview-details">
               <h2>{show.title}</h2>
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
-              <p className="show-preview-description">{show.description}</p>
+              <p className="show-preview-description"> {shorterDescription(show.description, 1)}</p>
               <h3>Seasons: {show.seasons} </h3>
               <p > 
                 Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
