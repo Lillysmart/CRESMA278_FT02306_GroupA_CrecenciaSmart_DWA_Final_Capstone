@@ -176,7 +176,8 @@ export const ShowPreview = () => {
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       
-      <CustomSlider data={sortedData} />
+      <CustomSlider data={sortedData}/>
+
       <div className="show-grid">
         {sortedData
           .filter(

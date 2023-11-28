@@ -342,68 +342,19 @@ body {
     ); /* 3 shows horizontally on larger screens */
   }
 }
+.slider-grid{
+  height: 200px;
+  justify-items: center;
+  border: 1px solid red;
+  margin: 0 auto;
+  display:grid;
+  text-align: center;
+  width: 400px;
+  
 
-/* SlidingCarousel.css */
-
-.sliding-carousel-container {
-  width: 80%;
-  margin: auto;
-  overflow: hidden;
-  position: relative;
+}
+.slider-grid img {
+  height: 100px;
+  margin: 0 auto;
 }
 
-.sliding-carousel-track {
-  display: flex;
-  transition: transform 0.5s ease-in-out;
-}
-
-.sliding-carousel-item {
-  min-width: 100%;
-  box-sizing: border-box;
-}
-
-.sliding-carousel-button {
-  position: absolute;
-  top: 50%;
-  width: 40px;
-  height: 40px;
-  background-color: #333;
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  transform: translateY(-50%);
-}
-
-.prev {
-  left: 0;
-}
-
-.next {
-  right: 0;
-}
-
-
-.custom-slider-container {
-  position: relative;
-}
-
-.custom-slider-item {
-  display: none;
-}
-
-.custom-slider-item.active {
-  display: block;
-}
-
-.next-button {
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  background-color: #333;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-}

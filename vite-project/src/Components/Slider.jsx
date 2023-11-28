@@ -1,38 +1,33 @@
-import React, { useState, useEffect } from "react"
+// CustomSlider.jsx
+
+import React from 'react';
+import Slider from 'react-slick';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export const CustomSlider = ({ data }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // Take the first 10 shows
+  const showsToDisplay = data.slice(0, 10);
 
-  const nextSlide = () => {
-    setCurrentSlide((prevSlide) => (prevSlide === data.length - 1 ? 0 : prevSlide + 1));
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="custom-slider-container">
-      {/* Your slider items */}
-      {data.map((show, index) => (
-        <div
-          key={index}
-          className={`custom-slider-item ${index === currentSlide ? "active" : ""}`}
-        >
-          <h2>{show.title}</h2>
-          <img src={show.image} alt={`Show ${index + 1}`} />
-          {/* Add any additional content or styling as needed */}
-        </div>
-      ))}
-      
-      {/* Button to manually navigate to the next slide */}
-      <button className="next-button" onClick={nextSlide}>
-        Next
-      </button>
+    <div>
+      <Slider {...settings} className='slider-grid'>
+        {showsToDisplay.map((show) => (
+          <div key={show.id}>
+            <h3>{show.title}</h3>
+            <img src={show.image} alt={show.title}  />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };
