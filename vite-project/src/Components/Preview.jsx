@@ -196,7 +196,7 @@ export const ShowPreview = () => {
               <img src={show.image} alt={`Show ${showIndex + 1}`} />
               <p className="show-preview-description"> {shorterDescription(show.description, 1)}</p>
               <h3>Seasons: {show.seasons} </h3>
-              <p > 
+              <p className="show-updated" > 
                 Updated: {new Date(show.updated).toLocaleDateString("en-UK")}
               </p>
               <p className="showgenre">
