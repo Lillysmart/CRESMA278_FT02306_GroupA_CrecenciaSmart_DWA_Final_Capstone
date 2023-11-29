@@ -117,7 +117,7 @@ export const ShowPreview = () => {
   };
 
   const logIn= async()=>{
-await createSupabaseClient.auth.signInWithOAuth({provider: "github"})
+await supabaseClient.auth.signInWithOAuth({provider: "github"})
 
   }
   
