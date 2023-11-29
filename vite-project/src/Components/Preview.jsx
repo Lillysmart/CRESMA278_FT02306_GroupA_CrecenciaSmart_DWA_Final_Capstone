@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFavoritesContext } from "./FavoritesContext";
 import sbd from 'sbd';
 import {CustomSlider} from "./Slider"
-import {createSupabaseClient} from "../Helpers/SuperbaseClient.jsx"
+import {createSupabaseClient} from "../Helpers/SuperbaseClient"
 
 const supabaseClient = createSupabaseClient();
 
