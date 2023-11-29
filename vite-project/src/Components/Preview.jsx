@@ -130,7 +130,7 @@ export const ShowPreview = () => {
    
       <nav className="navbar">
         <div className="logo">
-          <img src="../Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
+          <img src="https://main--shimmering-tanuki-a1ab89.netlify.app/Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
         </div>
         
         <div className="menu">
