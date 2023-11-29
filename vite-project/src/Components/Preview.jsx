@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useFavoritesContext } from "./FavoritesContext";
 import sbd from 'sbd';
 import {CustomSlider} from "./Slider"
+import {createSupabaseClient} from "../Helpers/SuperbaseClient.jsx"
 
 
 
@@ -16,6 +17,8 @@ export const ShowPreview = () => {
   const { favorites } = useFavoritesContext();
   const [selectedGenre, setSelectedGenre] = useState();
   const navigate = useNavigate();
+  const [user , sertUser]= useState(null)
+ 
 
   // Genre mapping
   const genreMap = {
@@ -112,13 +115,29 @@ export const ShowPreview = () => {
       (sentences.length > maxSentences ? "..." : "");
     return truncatedDescription;
   };
+
+  const logIn= async()=>{
+await createSupabaseClient.auth.signInWithOAuth({provider: "github"})
+
+  }
+  useEffect(()=>{
+
+    const session= createSupabaseClient.auth.getSession() 
+    sertUser(session?.user)
+    console.log(session)
+  },[])
+
+
   return (
     <>
+    <div>
+      { user&&  <h1>Authenticated</h1> }
+      </div>
       <nav className="navbar">
         <div className="logo">
           <img src="../Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
         </div>
-
+        
         <div className="menu">
           <div className="menu-item">
             <label htmlFor="sort">Sort By:</label>
@@ -170,6 +189,9 @@ export const ShowPreview = () => {
               View Favorites
             </button>
           </div>
+          <div className="menu-item">
+          <button onClick={logIn}> <img src="../Images/user.png" width="25px" height="20px"/></button>
+    </div>
         </div>
       </nav>
 

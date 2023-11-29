@@ -193,4 +193,3 @@ export const ShowDetail = () => {
 
 export default ShowDetail;
 
-localStorage.setItem("showDetail" ,JSON.stringify(ShowDetail))

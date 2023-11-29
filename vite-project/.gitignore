@@ -23,3 +23,4 @@ dist-ssr
 *.sln
 *.sw?
 CRESMA278_FT02306_GroupA_CrecenciaSmart_DWA_Final_Capstone
+.env

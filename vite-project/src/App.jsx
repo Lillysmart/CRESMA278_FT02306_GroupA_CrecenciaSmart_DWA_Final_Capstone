@@ -10,7 +10,7 @@ import { FavoritesProvider } from './Components/FavoritesContext';
 const App = () => {
 
   return (
-    
+   
       
       <Routes>
         <Route path="/" element={<ShowPreview />} />
