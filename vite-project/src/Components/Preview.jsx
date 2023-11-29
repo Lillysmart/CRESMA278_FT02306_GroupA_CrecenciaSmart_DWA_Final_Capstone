@@ -130,7 +130,7 @@ export const ShowPreview = () => {
    
       <nav className="navbar">
         <div className="logo">
-          <img src="../Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
+          <img src="/Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
         </div>
         
         <div className="menu">
@@ -185,7 +185,7 @@ export const ShowPreview = () => {
             </button>
           </div>
           <div className="menu-item">
-          <button onClick={logIn}> <img src="../Images/user.png" width="25px" height="20px"/></button>
+          <button onClick={logIn}> <img src="../Images/user.png" width="25px" height="20px" alt="log in "/></button>
   
     </div>
         </div>
