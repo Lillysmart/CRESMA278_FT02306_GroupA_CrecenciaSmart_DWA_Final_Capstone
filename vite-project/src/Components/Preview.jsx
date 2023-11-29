@@ -5,7 +5,7 @@ import sbd from 'sbd';
 import {CustomSlider} from "./Slider"
 import {createSupabaseClient} from "../Helpers/SuperbaseClient.jsx"
 
-
+const supabaseClient = createSupabaseClient();
 
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
