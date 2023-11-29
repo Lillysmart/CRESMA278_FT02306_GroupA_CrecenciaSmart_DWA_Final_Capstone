@@ -120,19 +120,12 @@ export const ShowPreview = () => {
 await createSupabaseClient.auth.signInWithOAuth({provider: "github"})
 
   }
-  useEffect(()=>{
-
-    const session= createSupabaseClient.auth.getSession() 
-    sertUser(session?.user)
-    console.log(session)
-  },[])
+  
 
 
   return (
     <>
-    <div>
-      { user&&  <h1>Authenticated</h1> }
-      </div>
+   
       <nav className="navbar">
         <div className="logo">
           <img src="../Images/broadcast.png" alt="Broadcast Logo" width="130px" height="500px"/>
