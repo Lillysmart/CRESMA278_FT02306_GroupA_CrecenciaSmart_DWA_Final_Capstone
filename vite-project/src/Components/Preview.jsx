@@ -116,12 +116,14 @@ export const ShowPreview = () => {
     return truncatedDescription;
   };
 
-  const logIn= async()=>{
-await supabaseClient.auth.signInWithOAuth({provider: "github"})
-
-  }
+  const logIn = async () => {
+    try {
+      await supabaseClient.auth.signInWithOAuth({ provider: "github" });
+    } catch (error) {
+      console.error("Authentication error:", error.message);
+    }
+  };
   
-
 
   return (
     <>
