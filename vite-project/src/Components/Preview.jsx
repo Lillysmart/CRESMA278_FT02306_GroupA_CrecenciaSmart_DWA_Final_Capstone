@@ -17,7 +17,7 @@ export const ShowPreview = () => {
   const { favorites } = useFavoritesContext();
   const [selectedGenre, setSelectedGenre] = useState();
   const navigate = useNavigate();
-  const [user , sertUser]= useState(null)
+
  
 
   // Genre mapping
