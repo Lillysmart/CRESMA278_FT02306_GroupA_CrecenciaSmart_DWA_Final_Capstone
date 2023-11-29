@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useFavoritesContext } from "./FavoritesContext";
 import sbd from 'sbd';
 import {CustomSlider} from "./Slider"
-//import {createSupabaseClient} from "../Helpers/SuperbaseClient"
+import {createSupabaseClient} from "../Helpers/SuperbaseClient"
 
-//const supabaseClient = createSupabaseClient();
+const supabaseClient = createSupabaseClient();
 
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
@@ -116,14 +116,13 @@ export const ShowPreview = () => {
     return truncatedDescription;
   };
 
-  /*const logIn = async () => {
+  const logIn = async () => {
     try {
       await supabaseClient.auth.signInWithOAuth({ provider: "github" });
     } catch (error) {
       console.error("Authentication error:", error.message);
     }
-  };*/
-  //<button onClick={logIn}> <img src="../Images/user.png" width="25px" height="20px"/></button>
+  };
   
 
   return (
@@ -186,7 +185,8 @@ export const ShowPreview = () => {
             </button>
           </div>
           <div className="menu-item">
-          
+          <button onClick={logIn}> <img src="../Images/user.png" width="25px" height="20px"/></button>
+  
     </div>
         </div>
       </nav>
