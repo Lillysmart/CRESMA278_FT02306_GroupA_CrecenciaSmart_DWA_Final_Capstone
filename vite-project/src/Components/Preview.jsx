@@ -123,7 +123,6 @@ export const ShowPreview = () => {
       console.error("Authentication error:", error.message);
     }
   };
-  
 
   return (
     <>
@@ -185,7 +184,7 @@ export const ShowPreview = () => {
             </button>
           </div>
           <div className="menu-item">
-          <button onClick={logIn}> <img src="../Images/user.png" width="25px" height="20px" alt="log in "/></button>
+          <button onClick={logIn}> <img src="/user.png" width="25px" height="20px" alt="log in "/></button>
   
     </div>
         </div>
