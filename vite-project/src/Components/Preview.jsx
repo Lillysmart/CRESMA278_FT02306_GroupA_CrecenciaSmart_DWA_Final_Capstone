@@ -17,6 +17,7 @@ export const ShowPreview = () => {
   const { favorites } = useFavoritesContext();
   const [selectedGenre, setSelectedGenre] = useState();
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
  
 
@@ -116,14 +117,41 @@ export const ShowPreview = () => {
     return truncatedDescription;
   };
 
+  useEffect(() => {
+    const getSession = async () => {
+      try {
+        const session = await supabaseClient.auth.getSession();
+        setUser(session?.user);
+      } catch (error) {
+        console.error("Error getting session:", error.message);
+      }
+    };
+
+    getSession();
+  }, []);
+
   const logIn = async () => {
     try {
-      await supabaseClient.auth.signInWithOAuth({ provider: "github" });
+      const { user, session, error } = await supabaseClient.auth.signInWithOAuth({ provider: "github" });
+
+      if (error) {
+        console.error("Authentication error:", error.message);
+      } else {
+        setUser(user);
+      }
     } catch (error) {
       console.error("Authentication error:", error.message);
     }
   };
 
+  const logOut = async () => {
+    try {
+      await supabaseClient.auth.signOut();
+      setUser(null);
+    } catch (error) {
+      console.error("Logout error:", error.message);
+    }
+  };
   return (
     <>
    
@@ -184,8 +212,16 @@ export const ShowPreview = () => {
             </button>
           </div>
           <div className="menu-item">
-          <button onClick={logIn}> <img src="/user.png" width="25px" height="20px" alt="log in "/></button>
-  
+          {user ? (
+        <div>
+          <p>Welcome, {user.email}</p>
+          <button onClick={logOut}>Logout</button>
+        </div>
+      ) : (
+        <button className="login-button" onClick={logIn}>
+          <img src="/user.png" width="25px" height="20px" alt="log in" />
+        </button>
+      )}
     </div>
         </div>
       </nav>
