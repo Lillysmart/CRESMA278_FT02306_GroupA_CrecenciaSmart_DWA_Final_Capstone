@@ -12,7 +12,13 @@ export const ShowDetail = () => {
   const [selectedSeason, setSelectedSeason] = useState(null);
   const { addToFavorites, favorites, removeFromFavorites } =
     useFavoritesContext();
-  const [audioPlaying, setAudioPlaying] = useState(false);
+    const [audioPlaying, setAudioPlaying] = useState(false);
+    const [audioProgress, setAudioProgress] = useState(0);
+    const [userPreferences, setUserPreferences] = useState({
+      lastListenedShow: null,
+      lastListenedEpisode: null,
+      listenedAllTheWayThrough: [],
+    });
   const navigate = useNavigate();
 
  
@@ -71,28 +77,121 @@ export const ShowDetail = () => {
     return truncatedDescription;
   };
 
+// Load user preferences on component mount
+useEffect(() => {
+  const storedUserPreferences = localStorage.getItem("userPreferences");
+  if (storedUserPreferences) {
+    setUserPreferences(JSON.parse(storedUserPreferences));
+  }
+}, []);
+
+// Save user preferences to localStorage when they change
+useEffect(() => {
+  localStorage.setItem("userPreferences", JSON.stringify(userPreferences));
+}, [userPreferences]);
+
+
+  // Prompt user before leaving the page if audio is playing
   useEffect(() => {
     const handleBeforeUnload = (event) => {
       if (audioPlaying) {
-        const confirmationMessage = 'You have audio playing. Are you sure you want to leave? Your audio may stop.';
+        const confirmationMessage =
+          'You have audio playing. Are you sure you want to leave? Your audio may stop.';
         event.returnValue = confirmationMessage;
       }
     };
 
-    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener("beforeunload", handleBeforeUnload);
 
     return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [audioPlaying]);
 
+// Remember the last listened show, season, and episode
+useEffect(() => {
+  if (showDetails && selectedSeason) {
+    const selectedSeasonDetails = showDetails.seasons.find(
+      (season) => season.season.toString() === selectedSeason
+    );
+
+    if (selectedSeasonDetails) {
+      setUserPreferences((prevUserPreferences) => {
+        const lastListenedEpisode =
+          prevUserPreferences.lastListenedShow === showDetails.title &&
+          prevUserPreferences.lastListenedSeason === selectedSeason
+            ? prevUserPreferences.lastListenedEpisode
+            : String(selectedSeasonDetails.episodes[0].episode);
+
+        // Only update if the selected show or season changes
+        if (
+          prevUserPreferences.lastListenedShow !== showDetails.title ||
+          prevUserPreferences.lastListenedSeason !== selectedSeason ||
+          prevUserPreferences.lastListenedEpisode !== lastListenedEpisode
+        ) {
+          const updatedUserPreferences = {
+            ...prevUserPreferences,
+            lastListenedShow: showDetails.title,
+            lastListenedSeason: selectedSeason,
+            lastListenedEpisode: lastListenedEpisode,
+          };
+
+          console.log(
+            'Updated User Preferences:\n',
+            `Last Listened Show: ${updatedUserPreferences.lastListenedShow}\n`,
+            `Last Listened Season: ${updatedUserPreferences.lastListenedSeason}\n`,
+            `Last Listened Episode: ${updatedUserPreferences.lastListenedEpisode}`
+          );
+
+          return updatedUserPreferences;
+        }
+
+        // If the selected show or season remains the same, no need to update
+        return prevUserPreferences;
+      });
+    }
+  }
+}, [showDetails, selectedSeason]);
+
+
+  // Remember timestamp when the user stops listening
+  useEffect(() => {
+    const handleAudioPause = () => {
+      if (audioPlaying) {
+        setUserPreferences({
+          ...userPreferences,
+          lastListenedTimestamp: audioProgress.toFixed(2),
+        });
+      }
+    };
+
+    window.addEventListener("beforeunload", handleAudioPause);
+
+    return () => {
+      window.removeEventListener("beforeunload", handleAudioPause);
+    };
+  }, [audioPlaying, audioProgress, userPreferences]);
+
+  // Reset all user progress
+  const handleResetProgress = () => {
+    setUserPreferences((prevUserPreferences) => ({
+      ...prevUserPreferences,
+      lastListenedShow: null,
+      lastListenedSeason: null,
+      lastListenedEpisode: null,
+      listenedAllTheWayThrough: [],
+    }));
+  };
+  
   return (
     <>
       <div className="fixed-buttons">
         <button className="back-button" onClick={handleBackClick}>
           Back to Preview
         </button>
-
+        <button className="reset-button" onClick={handleResetProgress}>
+          Reset All Listening History
+        </button>
         <button className="favourite-button" onClick={handleFavouriteClick}>
           Favourite
         </button>
@@ -146,12 +245,17 @@ export const ShowDetail = () => {
                             <div key={episode.episode} className="episode-card">
                               <h4>{`Episode ${episode.episode} : ${episode.title}`}</h4>
                               <p>{episode.description}</p>
-                              <audio controls  onPlay={() => setAudioPlaying(true)}
-        onPause={() => setAudioPlaying(false)}>
-                                <source src={episode.file} type="audio/mp3" />
-                            Audio not supportef by your browser 
-                              </audio>
-                              {audioPlaying && <p>Audio is playing. Please pause before leaving the page.</p>}
+                              <audio
+                    controls
+                    onPlay={() => setAudioPlaying(true)}
+                    onPause={() => setAudioPlaying(false)}
+                    onTimeUpdate={(e) => setAudioProgress(e.target.currentTime)}
+                  >
+                    <source src={episode.file} type="audio/mp3" />
+                    Audio not supported by your browser
+                  </audio>
+                  <p>Current Progress: {audioProgress.toFixed(2)} seconds</p>
+                 
                               <br />
                               {isFavorite(episode.episode) ? (
                                 <button
