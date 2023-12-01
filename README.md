@@ -19,6 +19,7 @@
 - **Search by Title:** Easily search for shows or episodes by title..
 - **Season Selection:** Choose a specific season to view and listen to its episodes.
 - **Favorites Page:** Users can add their favorite shows and seasons to a dedicated favorites page.
+- **User Authentication:** Secure user authentication to personalize the podcast listening experience.
 
  ## Technologies Used 🖥
 
@@ -26,6 +27,7 @@
 - **JavaScript (JS):** The programming language used for client-side scripting.
 - **Node.js:** A runtime environment for executing JavaScript code on the server.
 - **Vite:** A fast build tool that enhances the development experience for modern web projects.
+- **Firebase:** Used for authentication and real-time data update
 
 ## Deployment
 The app is live and can be accessed on [Netlify](https://shimmering-tanuki-a1ab89.netlify.app).
