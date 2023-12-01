@@ -19,5 +19,11 @@
 - **Search by Title:** Easily search for shows or episodes by title..
 - **Season Selection:** Choose a specific season to view and listen to its episodes.
 - **Favorites Page:** Users can add their favorite shows and seasons to a dedicated favorites page.
--
- 
+
+ ## Technologies Used
+
+- **React:** A JavaScript library for building user interfaces.
+- **JavaScript (JS):** The programming language used for client-side scripting.
+- **Node.js:** A runtime environment for executing JavaScript code on the server.
+- **Vite:** A fast build tool that enhances the development experience for modern web projects.
+
