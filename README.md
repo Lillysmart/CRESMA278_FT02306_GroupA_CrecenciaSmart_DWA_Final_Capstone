@@ -1,11 +1,11 @@
 # BroadCast App  🎧
-# React + Vite
 
-##Overview 
+
+## Overview 
 
 *This Podcast App is a web application built using JavaScript and React that allows users to explore and listen to podcasts of their choice  and manage their favorite podcasts*.🎶
 
-##Features📌
+## Features 📌
 
 - **Browse Shows**: Explore a variety of podcasts shows.🔍
 - **Listen to Episodes**: Enjoy listening to individual episodes within a show.
@@ -20,9 +20,9 @@
 - **Season Selection:** Choose a specific season to view and listen to its episodes.
 - **Favorites Page:** Users can add their favorite shows and seasons to a dedicated favorites page.
 
- ## Technologies Used
+ ## Technologies Used 🖥
 
-- **React:** A JavaScript library for building user interfaces.
+- **React:** A JavaScript library for building user interfaces.j
 - **JavaScript (JS):** The programming language used for client-side scripting.
 - **Node.js:** A runtime environment for executing JavaScript code on the server.
 - **Vite:** A fast build tool that enhances the development experience for modern web projects.
