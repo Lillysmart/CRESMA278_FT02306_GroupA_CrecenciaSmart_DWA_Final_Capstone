@@ -14,7 +14,7 @@
   - **Latest:** Filter shows and episodes by the latest releases.
   - **Oldest:** Filter shows and episodes by the oldest releases.
   - **By Genre:** Filter shows by genre for a personalized listening experience.
--   **A-Z:** Filter titles in ascending alphabetical order.
+  - **A-Z:** Filter titles in ascending alphabetical order.
   - **Z-A:** Filter titles in descending alphabetical order.
 - **Search by Title:** Easily search for shows or episodes by title..
 - **Season Selection:** Choose a specific season to view and listen to its episodes.
