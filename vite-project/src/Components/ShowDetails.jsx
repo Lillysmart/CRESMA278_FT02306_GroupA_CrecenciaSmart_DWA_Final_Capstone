@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, json } from "react-router-dom";
 import { useContext } from "react";
 import { useFavoritesContext } from "./FavoritesContext";
@@ -19,6 +19,7 @@ export const ShowDetail = () => {
       lastListenedEpisode: null,
       listenedAllTheWayThrough: [],
     });
+    const audioRef = useRef(null);
   const navigate = useNavigate();
 
  
@@ -96,7 +97,7 @@ useEffect(() => {
     const handleBeforeUnload = (event) => {
       if (audioPlaying) {
         const confirmationMessage =
-          'You have audio playing. Are you sure you want to leave? Your audio may stop.';
+          alert('You have audio playing. Are you sure you want to leave? Your audio may stop.');
         event.returnValue = confirmationMessage;
       }
     };
@@ -107,6 +108,39 @@ useEffect(() => {
       window.removeEventListener("beforeunload", handleBeforeUnload);
     };
   }, [audioPlaying]);
+
+  // Update lastListenedEpisode when audio starts playing
+  useEffect(() => {
+    const handleAudioPlay = () => {
+      const currentAudioRef = audioRef.current;
+  
+      // Add a check to ensure currentAudioRef is not null
+      if (currentAudioRef) {
+        const episodeNumber = currentAudioRef.dataset.episode || null;
+        
+        setUserPreferences((prevUserPreferences) => ({
+          ...prevUserPreferences,
+          lastListenedEpisode: episodeNumber,
+        }));
+      }
+    };
+  
+    const currentAudioRef = audioRef.current;
+  
+    // Add a check to ensure currentAudioRef is not null before adding the event listener
+    if (currentAudioRef) {
+      currentAudioRef.addEventListener("play", handleAudioPlay);
+    }
+  
+    return () => {
+      // Use the variable currentAudioRef in the cleanup function
+      if (currentAudioRef) {
+        currentAudioRef.removeEventListener("play", handleAudioPlay);
+      }
+    };
+  }, [audioRef]);
+  
+  
 
 // Remember the last listened show, season, and episode
 useEffect(() => {
@@ -121,7 +155,7 @@ useEffect(() => {
           prevUserPreferences.lastListenedShow === showDetails.title &&
           prevUserPreferences.lastListenedSeason === selectedSeason
             ? prevUserPreferences.lastListenedEpisode
-            : String(selectedSeasonDetails.episodes[0].episode);
+            : null;
 
         // Only update if the selected show or season changes
         if (
@@ -155,23 +189,22 @@ useEffect(() => {
 
 
   // Remember timestamp when the user stops listening
-  useEffect(() => {
-    const handleAudioPause = () => {
-      if (audioPlaying) {
-        setUserPreferences({
-          ...userPreferences,
-          lastListenedTimestamp: audioProgress.toFixed(2),
-        });
-      }
-    };
+useEffect(() => {
+  const handleAudioPause = () => {
+    if (audioPlaying) {
+      setUserPreferences((prevUserPreferences) => ({
+        ...prevUserPreferences,
+        lastListenedTimestamp: audioProgress.toFixed(2),
+      }));
+    }
+  };
 
-    window.addEventListener("beforeunload", handleAudioPause);
+  window.addEventListener("beforeunload", handleAudioPause);
 
-    return () => {
-      window.removeEventListener("beforeunload", handleAudioPause);
-    };
-  }, [audioPlaying, audioProgress, userPreferences]);
-
+  return () => {
+    window.removeEventListener("beforeunload", handleAudioPause);
+  };
+}, [audioPlaying, audioProgress]);
   // Reset all user progress
   const handleResetProgress = () => {
     setUserPreferences((prevUserPreferences) => ({
@@ -246,6 +279,7 @@ useEffect(() => {
                               <h4>{`Episode ${episode.episode} : ${episode.title}`}</h4>
                               <p>{episode.description}</p>
                               <audio
+                               ref={audioRef}
                     controls
                     onPlay={() => setAudioPlaying(true)}
                     onPause={() => setAudioPlaying(false)}
