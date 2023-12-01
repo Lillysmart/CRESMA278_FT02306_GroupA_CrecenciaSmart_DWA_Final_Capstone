@@ -7,12 +7,9 @@
 
 ##Features📌
 
--**Browse Shows**: Explore a variety of podcasts shows.🔍
-
--**Listen to Episodes**: Enjoy listening to individual episodes within a show.
-
--**Show Preview**: Click on a show to view its description, available seasons, and episodes.
-
+- **Browse Shows**: Explore a variety of podcasts shows.🔍
+- **Listen to Episodes**: Enjoy listening to individual episodes within a show.
+- **Show Preview**: Click on a show to view its description, available seasons, and episodes.
 - **Filter Options:**
   - **Latest:** Filter shows and episodes by the latest releases.
   - **Oldest:** Filter shows and episodes by the oldest releases.
