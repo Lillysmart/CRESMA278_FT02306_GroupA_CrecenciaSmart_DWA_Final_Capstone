@@ -111,23 +111,28 @@ useEffect(() => {
 
   // Update lastListenedEpisode when audio starts playing
   useEffect(() => {
-    const handleAudioPlay = () => {
-      const currentAudioRef = audioRef.current;
-  
-      // Add a check to ensure currentAudioRef is not null
-      if (currentAudioRef) {
-        const episodeNumber = currentAudioRef.dataset.episode || null;
-        
-        setUserPreferences((prevUserPreferences) => ({
-          ...prevUserPreferences,
-          lastListenedEpisode: episodeNumber,
-        }));
-      }
-    };
-  
+   // Update lastListenedEpisode when audio starts playing
+   const handleAudioPlay = () => {
     const currentAudioRef = audioRef.current;
   
-    // Add a check to ensure currentAudioRef is not null before adding the event listener
+    if (currentAudioRef) {
+      const episodeNumber = currentAudioRef.dataset.episode || null;
+
+      setUserPreferences((prevUserPreferences) => ({
+        ...prevUserPreferences,
+        lastListenedEpisode: {
+          episodeNumber,
+          season: prevUserPreferences.lastListenedEpisode?.season || selectedSeason,
+          showTitle: prevUserPreferences.lastListenedEpisode?.showTitle || showDetails.title,
+        },
+        lastListenedTimestamp: getAudioProgress(),
+      }));
+    }
+  };
+  
+
+    const currentAudioRef = audioRef.current;
+  
     if (currentAudioRef) {
       currentAudioRef.addEventListener("play", handleAudioPlay);
     }
@@ -139,7 +144,6 @@ useEffect(() => {
       }
     };
   }, [audioRef]);
-  
   
 
 // Remember the last listened show, season, and episode
@@ -215,6 +219,34 @@ useEffect(() => {
       listenedAllTheWayThrough: [],
     }));
   };
+
+  const getAudioProgress = () => {
+    return audioRef.current ? audioRef.current.currentTime.toFixed(2) : "0.00";
+  };
+  
+
+  const handleAudioClick = (episode) => {
+    setAudioPlaying((prevAudioPlaying) => {
+      if (!prevAudioPlaying) {
+        // Only update the user preferences if the audio is starting to play
+        setUserPreferences((prevUserPreferences) => ({
+          ...prevUserPreferences,
+          lastListenedEpisode: {
+            episodeNumber: episode.episode,
+            season: selectedSeason,
+            showTitle: showDetails.title,
+          },
+        }));
+      } else {
+        // Save the current progress when audio is paused
+        setUserPreferences((prevUserPreferences) => ({
+          ...prevUserPreferences,
+          lastListenedTimestamp: getAudioProgress(),
+        }));
+      }
+      return !prevAudioPlaying;
+    });
+  };
   
   return (
     <>
@@ -281,15 +313,16 @@ useEffect(() => {
                               <audio
                                ref={audioRef}
                     controls
+                    onClick={() => handleAudioClick(episode)}
                     onPlay={() => setAudioPlaying(true)}
                     onPause={() => setAudioPlaying(false)}
-                    onTimeUpdate={(e) => setAudioProgress(e.target.currentTime)}
+                   
                   >
                     <source src={episode.file} type="audio/mp3" />
                     Audio not supported by your browser
                   </audio>
-                  <p>Current Progress: {audioProgress.toFixed(2)} seconds</p>
-                 
+                  <p>Current Progress: {getAudioProgress()} seconds</p>
+
                               <br />
                               {isFavorite(episode.episode) ? (
                                 <button
