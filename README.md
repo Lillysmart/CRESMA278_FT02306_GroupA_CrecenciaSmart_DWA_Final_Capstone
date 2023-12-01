@@ -27,3 +27,6 @@
 - **Node.js:** A runtime environment for executing JavaScript code on the server.
 - **Vite:** A fast build tool that enhances the development experience for modern web projects.
 
+## Deployment
+The app is live and can be accessed on [Netlify](https://shimmering-tanuki-a1ab89.netlify.app).
+
