@@ -10,13 +10,17 @@ const supabaseClient = createSupabaseClient();
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [error, setError] = useState(null);
+
   const [titleSearchTerm, setTitleSearchTerm] = useState("");
   const [genreSearchTerm, setGenreSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("all"); // Default to "all"
   const { favorites } = useFavoritesContext();
   const [selectedGenre, setSelectedGenre] = useState();
+
   const navigate = useNavigate();
+
   const [user, setUser] = useState(null);
 
  
@@ -48,13 +52,14 @@ export const ShowPreview = () => {
         setLoading(false);
       });
   }, []);
+  const showData = data || [];
 
   const handleGenreChange = (e) => {
     setGenreSearchTerm(e.target.value);
     setSelectedGenre(e.target.value);
   };
 
-  const showData = data || [];
+  
 
  const handleTitleSearch = () => {
     const titleSearchTermLower = titleSearchTerm.toLowerCase();
@@ -236,6 +241,7 @@ export const ShowPreview = () => {
           .filter(
             (show) =>
               (!selectedGenre ||
+                //check  if show has a genre property 
                 (show.genres &&
                   show.genres
                     .map((id) => genreMap[id])
@@ -243,6 +249,7 @@ export const ShowPreview = () => {
               show.title.toLowerCase().includes(titleSearchTerm.toLowerCase())
           )
           .map((show, showIndex) => (
+            //each element runs this function
             <div
               key={showIndex}
               className="show-preview-card"
