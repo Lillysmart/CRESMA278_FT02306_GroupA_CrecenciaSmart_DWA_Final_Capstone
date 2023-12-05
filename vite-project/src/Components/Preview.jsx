@@ -5,12 +5,13 @@ import sbd from 'sbd';
 import {CustomSlider} from "./Slider"
 import {createSupabaseClient} from "../Helpers/SuperbaseClient"
 
+
+
 const supabaseClient = createSupabaseClient();
 
 export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [error, setError] = useState(null);
 
   const [titleSearchTerm, setTitleSearchTerm] = useState("");
@@ -85,6 +86,7 @@ export const ShowPreview = () => {
   const handleShowClick = (showId) => {
     navigate(`/id/${showId}`);
   };
+
 
   const handleFavoriteClick = () => {
     navigate("/favourites");

@@ -262,102 +262,98 @@ useEffect(() => {
         </button>
       </div>
       <div className="show-container">
-        {loading ? (
-          <p>Loading...</p>
-        ) : showDetails ? (
-          <div className="show-card">
-            <div className="show-top-info">
-              <h1 className="show-title">{showDetails.title}</h1>
-              <img
-                className="show-image"
-                src={showDetails.image}
-                alt={showDetails.title}
-              />
-              <p className="show-description">
-                {shorterDescription(showDetails.description, 2)}
-              </p>
-            </div>
-            <div className="season-selection">
-              <label htmlFor="seasonSelect" className="season-label">
-                Season:
-              </label>
-              <select
-                id="seasonSelect"
-                onChange={handleSeasonSelect}
-                value={selectedSeason || ""}
-                className="season-select"
-              >
-                <option value="" disabled>
-                  Select a season
-                </option>
-                {showDetails.seasons.map((season) => (
-                  <option key={season.season} value={season.season}>
-                    {season.season}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {selectedSeason && (
-              <div className="selected-season-info">
-                {showDetails.seasons.map((season) => {
-                  if (season.season.toString() === selectedSeason) {
-                    return (
-                      <div key={season.season} className="season-container">
-                        <p>{`Number of Episodes: ${season.episodes.length}`}</p>
-
-                        {season.episodes && season.episodes.length > 0 ? (
-                          season.episodes.map((episode) => (
-                            <div key={episode.episode} className="episode-card">
-                              <h4>{`Episode ${episode.episode} : ${episode.title}`}</h4>
-                              <p>{episode.description}</p>
-                              <audio
-                               ref={audioRef}
-                    controls
-                    onClick={() => handleAudioClick(episode)}
-                    onPlay={() => setAudioPlaying(true)}
-                    onPause={() => setAudioPlaying(false)}
-                   
-                  >
-                    <source src={episode.file} type="audio/mp3" />
-                    Audio not supported by your browser
-                  </audio>
-                  <p>Current Progress: {getAudioProgress()} seconds</p>
-
-                              <br />
-                              {isFavorite(episode.episode) ? (
-                                <button
-                                  className="remove-favourite-button"
-                                  onClick={() =>
-                                    handleRemoveFromFavorites(episode.episode)
-                                  }
-                                >
-                                  Remove from Favorites
-                                </button>
-                              ) : (
-                                <button
-                                  className="add-favourite-button"
-                                  onClick={() => handleAddToFavorites(episode)}
-                                >
-                                  Add to Favorites
-                                </button>
-                              )}
-                            </div>
-                          ))
+  {loading && <p>Loading...</p>}
+  {showDetails && (
+    <div className="show-card">
+      <div className="show-top-info">
+        <h1 className="show-title">{showDetails.title}</h1>
+        <img
+          className="show-image"
+          src={showDetails.image}
+          alt={showDetails.title}
+        />
+        <p className="show-description">
+          {shorterDescription(showDetails.description, 2)}
+        </p>
+      </div>
+      <div className="season-selection">
+        <label htmlFor="seasonSelect" className="season-label">
+          Season:
+        </label>
+        <select
+          id="seasonSelect"
+          onChange={handleSeasonSelect}
+          value={selectedSeason || ""}
+          className="season-select"
+        >
+          <option value="" disabled>
+            Select a season
+          </option>
+          {showDetails.seasons.map((season) => (
+            <option key={season.season} value={season.season}>
+              {season.season}
+            </option>
+          ))}
+        </select>
+      </div>
+      {selectedSeason && (
+        <div className="selected-season-info">
+          {showDetails.seasons.map((season) => {
+            if (season.season.toString() === selectedSeason) {
+              return (
+                <div key={season.season} className="season-container">
+                  <p>{`Number of Episodes: ${season.episodes.length}`}</p>
+                  {season.episodes && season.episodes.length > 0 ? (
+                    season.episodes.map((episode) => (
+                      <div key={episode.episode} className="episode-card">
+                        <h4>{`Episode ${episode.episode} : ${episode.title}`}</h4>
+                        <p>{episode.description}</p>
+                        <audio
+                          ref={audioRef}
+                          controls
+                          onClick={() => handleAudioClick(episode)}
+                          onPlay={() => setAudioPlaying(true)}
+                          onPause={() => setAudioPlaying(false)}
+                        >
+                          <source src={episode.file} type="audio/mp3" />
+                          Audio not supported by your browser
+                        </audio>
+                        <p>Current Progress: {getAudioProgress()} seconds</p>
+                        <br />
+                        {isFavorite(episode.episode) ? (
+                          <button
+                            className="remove-favourite-button"
+                            onClick={() =>
+                              handleRemoveFromFavorites(episode.episode)
+                            }
+                          >
+                            Remove from Favorites
+                          </button>
                         ) : (
-                          <p>No episodes available for this season.</p>
+                          <button
+                            className="add-favourite-button"
+                            onClick={() => handleAddToFavorites(episode)}
+                          >
+                            Add to Favorites
+                          </button>
                         )}
                       </div>
-                    );
-                  }
-                  return null;
-                })}
-              </div>
-            )}
-          </div>
-        ) : (
-          <p>{error || "No show details available."}</p>
-        )}
-      </div>
+                    ))
+                  ) : (
+                    <p>No episodes available for this season.</p>
+                  )}
+                </div>
+              );
+            }
+            return null;
+          })}
+        </div>
+      )}
+    </div>
+  )}
+  {!showDetails && <p>{error || "No show details available."}</p>}
+</div>
+
     </>
   );
 };
