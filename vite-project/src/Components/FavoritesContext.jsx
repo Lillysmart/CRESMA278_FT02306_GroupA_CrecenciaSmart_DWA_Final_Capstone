@@ -1,9 +1,9 @@
 import React, { useContext, createContext, useState } from "react";
 
-//Create a context for managing favorites
+// Create a context for managing favorites
 const FavoritesContext = createContext();
 
-//Custom hook to use the favorites context
+// Custom hook to use the favorites context
 export const useFavoritesContext = () => {
   const context = useContext(FavoritesContext);
   if (!context) {
@@ -15,11 +15,11 @@ export const useFavoritesContext = () => {
   return context;
 };
 
-//the provider component that will be exported
-export const FavoritesProvider = ({ content }) => {
+// The provider component that will be exported
+export const FavoritesProvider = ({ children }) => {
   const [favorites, setFavorites] = useState([]);
 
-  // a functions to manipulate the state
+  // Functions to manipulate the state
   const addToFavorites = (episode, show, season) => {
     setFavorites([...favorites, { episode, show, season }]);
   };
@@ -32,7 +32,7 @@ export const FavoritesProvider = ({ content }) => {
     );
   };
 
-  //The context value to the components
+  // The context value to the components
   const contextValue = {
     favorites,
     addToFavorites,
@@ -40,9 +40,9 @@ export const FavoritesProvider = ({ content }) => {
   };
 
   return (
-    // Step 7: Use the context provider to wrap components that need access
+    // Use the context provider to wrap components that need access
     <FavoritesContext.Provider value={contextValue}>
-      {content}
+      {children}
     </FavoritesContext.Provider>
   );
 };

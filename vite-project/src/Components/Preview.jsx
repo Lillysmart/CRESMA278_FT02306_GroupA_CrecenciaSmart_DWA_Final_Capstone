@@ -13,15 +13,17 @@ export const ShowPreview = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+ 
 
   const [titleSearchTerm, setTitleSearchTerm] = useState("");
-  const [genreSearchTerm, setGenreSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState("all"); // Default to "all"
-  const { favorites } = useFavoritesContext();
+
+  const [genreSearchTerm, setGenreSearchTerm] = useState("");
   const [selectedGenre, setSelectedGenre] = useState();
 
-  const navigate = useNavigate();
+  const { favorites } = useFavoritesContext();
 
+  const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
  
@@ -60,9 +62,8 @@ export const ShowPreview = () => {
     setSelectedGenre(e.target.value);
   };
 
-  
 
- const handleTitleSearch = () => {
+ /*const handleTitleSearch = () => {
     const titleSearchTermLower = titleSearchTerm.toLowerCase();
     const filteredResults = showData.filter((show) => {
       const titleLower = show.title.toLowerCase();
@@ -81,7 +82,7 @@ export const ShowPreview = () => {
       return genreLower.includes(genreSearchTermLower);
     });
     return filteredResults;
-  };
+  };*/
 
   const handleShowClick = (showId) => {
     navigate(`/id/${showId}`);
@@ -92,12 +93,15 @@ export const ShowPreview = () => {
     navigate("/favourites");
   };
 
+
+  //object 
   const sortFunctions = {
     titleAsc: (a, b) => {
       const titleA = (a.title || "").toLowerCase();
       const titleB = (b.title || "").toLowerCase();
       return titleA.localeCompare(titleB);
     },
+    
     titleDesc: (a, b) => {
       const titleA = (a.title || "").toLowerCase();
       const titleB = (b.title || "").toLowerCase();
