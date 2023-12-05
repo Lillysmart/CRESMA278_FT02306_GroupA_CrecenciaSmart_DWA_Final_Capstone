@@ -16,7 +16,7 @@ export const useFavoritesContext = () => {
 };
 
 //the provider component that will be exported
-export const FavoritesProvider = ({ children }) => {
+export const FavoritesProvider = ({ content }) => {
   const [favorites, setFavorites] = useState([]);
 
   // a functions to manipulate the state
@@ -42,7 +42,7 @@ export const FavoritesProvider = ({ children }) => {
   return (
     // Step 7: Use the context provider to wrap components that need access
     <FavoritesContext.Provider value={contextValue}>
-      {children}
+      {content}
     </FavoritesContext.Provider>
   );
 };
