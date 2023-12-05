@@ -1,6 +1,5 @@
 import {useState} from "react"
 
-// useFavorites.js
 export const useFavorites = () => {
     const [favorites, setFavorites] = useState([]);
   

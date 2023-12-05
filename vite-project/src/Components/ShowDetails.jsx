@@ -9,6 +9,7 @@ export const ShowDetail = () => {
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const [selectedSeason, setSelectedSeason] = useState(null);
   const { addToFavorites, favorites, removeFromFavorites } =
     useFavoritesContext();
@@ -25,7 +26,6 @@ export const ShowDetail = () => {
  
 
   useEffect(() => {
-   
     const fetchShowDetails = async () => {
       try {
         const response = await fetch(
@@ -43,7 +43,6 @@ export const ShowDetail = () => {
         setLoading(false);
       }
     };
-
     fetchShowDetails();
   }, [id]);
 
