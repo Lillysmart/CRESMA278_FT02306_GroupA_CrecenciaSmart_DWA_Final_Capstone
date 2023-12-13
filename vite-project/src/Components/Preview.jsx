@@ -94,14 +94,14 @@ export const ShowPreview = () => {
   };
 
 
-  //object 
+  //object with sorting functions
   const sortFunctions = {
     titleAsc: (a, b) => {
       const titleA = (a.title || "").toLowerCase();
       const titleB = (b.title || "").toLowerCase();
       return titleA.localeCompare(titleB);
     },
-    
+
     titleDesc: (a, b) => {
       const titleA = (a.title || "").toLowerCase();
       const titleB = (b.title || "").toLowerCase();
