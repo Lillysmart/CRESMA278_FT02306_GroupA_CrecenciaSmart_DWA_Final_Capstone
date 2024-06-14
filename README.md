@@ -1,4 +1,4 @@
-# BroadCast App  🎧
+# PodCast App  🎧
 
 
 ## Overview 
